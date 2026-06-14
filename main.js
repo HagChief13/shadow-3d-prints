@@ -6,12 +6,12 @@ const cerrar = document.querySelector("#cerrar");
    MENU LATERAL
 ========================== */
 
-abrir.addEventListener("click", () => {
-    nav.classList.add("visible");
+abrir?.addEventListener("click", () => {
+    nav?.classList.add("visible");
 });
 
-cerrar.addEventListener("click", () => {
-    nav.classList.remove("visible");
+cerrar?.addEventListener("click", () => {
+    nav?.classList.remove("visible");
 });
 
 /* ==========================
@@ -21,22 +21,41 @@ cerrar.addEventListener("click", () => {
 const botonVolver = document.getElementById("volverArriba");
 
 window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-        botonVolver.classList.add("visible");
-    } else {
-        botonVolver.classList.remove("visible");
-    }
+    if (!botonVolver) return;
+
+    botonVolver.classList.toggle("visible", window.scrollY > 300);
 });
 
 /* ==========================
-   SPA SYSTEM (CORE)
+   SPA SYSTEM (CORE ÚNICO)
 ========================== */
 
 const sections = document.querySelectorAll("main section");
 
 function showSection(id) {
-    sections.forEach(sec => sec.classList.remove("active"));
-    document.getElementById(id)?.classList.add("active");
+
+    sections.forEach(sec => {
+        sec.style.display = "none";
+    });
+
+    const target = document.getElementById(id);
+    if (target) target.style.display = "block";
+
+    if (id === "inicio") restaurarInicio();
+}
+
+/* ==========================
+   RESTAURAR INICIO
+========================== */
+
+function restaurarInicio() {
+
+    document.getElementById("catalogo")?.style && (document.getElementById("catalogo").style.display = "none");
+    document.getElementById("checkout")?.style && (document.getElementById("checkout").style.display = "none");
+
+    document.getElementById("panel-carrito")?.classList.remove("visible");
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 /* ==========================
@@ -50,7 +69,7 @@ document.querySelectorAll("[data-section]").forEach(link => {
         const section = link.dataset.section;
         if (section) showSection(section);
 
-        nav.classList.remove("visible");
+        nav?.classList.remove("visible");
     });
 });
 
@@ -115,6 +134,8 @@ function mostrarCategoria(cat) {
 
     showSection("catalogo");
 
+    if (!catalogo) return;
+
     catalogo.innerHTML = "";
 
     productos[cat]?.forEach(p => {
@@ -127,14 +148,18 @@ function mostrarCategoria(cat) {
         `;
     });
 
-    nav.classList.remove("visible");
+    nav?.classList.remove("visible");
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* categorías */
+/* ==========================
+   CATEGORÍAS CLICK
+========================== */
+
 document.querySelectorAll("[data-categoria]").forEach(btn => {
     btn.addEventListener("click", (e) => {
         e.preventDefault();
+
         mostrarCategoria(btn.dataset.categoria);
         document.querySelector(".subcategorias")?.classList.remove("visible");
     });
@@ -156,14 +181,12 @@ function actualizarCarrito() {
     if (!contador || !listaCarrito) return;
 
     contador.textContent = carrito.length;
+    contador.classList.toggle("vacio", carrito.length === 0);
 
     if (carrito.length === 0) {
-        contador.classList.add("vacio");
         listaCarrito.innerHTML = `<p class="carrito-vacio">Tu carrito está vacío</p>`;
         return;
     }
-
-    contador.classList.remove("vacio");
 
     listaCarrito.innerHTML = "";
 
@@ -217,43 +240,10 @@ document.getElementById("btn-checkout")?.addEventListener("click", () => {
     panelCarrito?.classList.remove("visible");
 });
 
-const sections = document.querySelectorAll("main section");
-
-function showSection(id) {
-
-    sections.forEach(sec => {
-        sec.style.display = "none";
-    });
-
-    const target = document.getElementById(id);
-
-    if (target) {
-        target.style.display = "block";
-    }
-
-    // 👇 SI VUELVE A INICIO, RESTAURA TODO EL ESTADO INICIAL
-    if (id === "inicio") {
-        restaurarInicio();
-    }
-}
-
 /* ==========================
-   ESTADO INICIAL
+   INICIO
 ========================== */
 
-function restaurarInicio() {
-
-    // cerrar catálogo
-    const catalogo = document.getElementById("catalogo");
-    if (catalogo) catalogo.style.display = "none";
-
-    // cerrar checkout
-    const checkout = document.getElementById("checkout");
-    if (checkout) checkout.style.display = "none";
-
-    // cerrar panel carrito
-    document.getElementById("panel-carrito")?.classList.remove("visible");
-
-    // opcional: volver scroll arriba
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
+window.addEventListener("DOMContentLoaded", () => {
+    showSection("inicio");
+});
