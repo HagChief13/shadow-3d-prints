@@ -82,7 +82,7 @@ header {
     border: none;
     background: white;
     cursor: pointer;
-    border-radius: 0 30px 0 30px;
+    border-radius: 0 30px 30px 0;
 }
 
 /* ==========================
@@ -96,6 +96,8 @@ header {
     cursor: pointer;
     font-size: 2.5rem;
     position: relative;
+    flex: 0 0 auto;
+    margin-left: auto;
 }
 
 .contador-carrito {
@@ -119,7 +121,7 @@ header {
 }
 
 /* ==========================
-   MENÚ LATERAL (FIX REAL)
+   MENÚ LATERAL (CORREGIDO 100%)
 ========================== */
 
 .nav {
@@ -161,18 +163,25 @@ header {
 }
 
 /* ==========================
-   SUBCATEGORÍAS
+   OVERLAY (CORRECTO)
 ========================== */
 
-.subcategorias {
-    display: none;
-    list-style: none;
-    margin-left: 20px;
-    margin-top: 10px;
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.3s ease;
+
+    z-index: 2500;
 }
 
-.subcategorias.visible {
-    display: block;
+.overlay.visible {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* ==========================
@@ -258,9 +267,10 @@ header {
 ========================== */
 
 .panel-carrito {
-    position: absolute;
+    position: fixed;
     top: 80px;
     right: 20px;
+
     width: 320px;
     max-height: 500px;
     overflow-y: auto;
@@ -268,6 +278,7 @@ header {
     background: white;
     border-radius: 10px;
     padding: 15px;
+
     box-shadow: 0 5px 15px rgba(0,0,0,.2);
 
     display: none;
@@ -324,41 +335,19 @@ header {
 }
 
 /* ==========================
-   OVERLAY MENU
-========================== */
-
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.5);
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition: 0.3s ease;
-
-    z-index: 2500;
-}
-
-.overlay.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* ==========================
-   RESPONSIVE
+   RESPONSIVE FIX
 ========================== */
 
 @media (max-width: 768px) {
+
+    .barra-superior {
+        flex-wrap: nowrap;
+    }
 
     .busqueda {
         order: 3;
         width: 100%;
         margin: 10px 0 0 0;
-    }
-
-    .barra-superior {
-        flex-wrap: nowrap;
     }
 
     .carrito {
