@@ -1,93 +1,93 @@
-// ==========================
-// ELEMENTOS PRINCIPALES
-// ==========================
-
 const nav = document.querySelector(".nav");
 const abrir = document.querySelector(".abrir-menu");
 const cerrar = document.querySelector(".cerrar-menu");
 const overlay = document.querySelector(".overlay");
 
-const carritoBtn = document.querySelector(".carrito");
-const panelCarrito = document.querySelector(".panel-carrito");
+const carritoBtn = document.querySelector("#carrito");
+const panelCarrito = document.querySelector("#panel-carrito");
+const listaCarrito = document.querySelector("#lista-carrito");
+const contador = document.querySelector(".contador-carrito");
 
-// ==========================
-// MENÚ LATERAL
-// ==========================
+// =========================
+// MENU
+// =========================
 
-function abrirMenu() {
+abrir.addEventListener("click", () => {
     nav.classList.add("visible");
     overlay.classList.add("visible");
-}
+});
 
-function cerrarMenu() {
+cerrar.addEventListener("click", () => {
     nav.classList.remove("visible");
     overlay.classList.remove("visible");
-}
+});
 
-abrir.addEventListener("click", abrirMenu);
-cerrar.addEventListener("click", cerrarMenu);
-overlay.addEventListener("click", cerrarMenu);
+overlay.addEventListener("click", () => {
+    nav.classList.remove("visible");
+    overlay.classList.remove("visible");
+});
 
-// ==========================
-// SUBCATEGORÍAS
-// ==========================
+// =========================
+// SUBMENÚ
+// =========================
 
-// usa data-submenu en HTML
-const submenuButtons = document.querySelectorAll("[data-submenu]");
-
-submenuButtons.forEach(btn => {
+document.querySelectorAll("[data-submenu]").forEach(btn => {
     btn.addEventListener("click", () => {
-        const targetId = btn.getAttribute("data-submenu");
-        const submenu = document.querySelector(`#${targetId}`);
+        const id = btn.getAttribute("data-submenu");
+        const submenu = document.getElementById(id);
 
-        if (!submenu) return;
-
-        submenu.classList.toggle("visible");
+        if (submenu) {
+            submenu.classList.toggle("visible");
+        }
     });
 });
 
-// ==========================
-// CARRITO PANEL
-// ==========================
+// =========================
+// CARRITO OPEN/CLOSE
+// =========================
 
-function toggleCarrito() {
+carritoBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     panelCarrito.classList.toggle("visible");
-}
+});
 
-carritoBtn.addEventListener("click", toggleCarrito);
-
-// cerrar carrito al hacer click fuera
 document.addEventListener("click", (e) => {
-    const clickDentroCarrito = panelCarrito.contains(e.target);
-    const clickEnBoton = carritoBtn.contains(e.target);
-
-    if (!clickDentroCarrito && !clickEnBoton) {
+    if (!panelCarrito.contains(e.target) && !carritoBtn.contains(e.target)) {
         panelCarrito.classList.remove("visible");
     }
 });
 
-// ==========================
-// CARRITO LÓGICA BÁSICA
-// ==========================
+// =========================
+// CARRITO DATA
+// =========================
 
 let carrito = [];
 
-function agregarAlCarrito(nombre, precio) {
+window.agregarAlCarrito = function(nombre, precio) {
     carrito.push({ nombre, precio });
     renderCarrito();
-}
+};
+
+// =========================
+// RENDER CARRITO (FIX REAL)
+// =========================
 
 function renderCarrito() {
-    const contenedor = document.querySelector(".panel-carrito");
 
-    contenedor.innerHTML = "<h3>Carrito</h3>";
+    listaCarrito.innerHTML = "";
+
+    if (carrito.length === 0) {
+        listaCarrito.innerHTML = `<p>Tu carrito está vacío</p>`;
+        contador.textContent = "0";
+        return;
+    }
 
     let total = 0;
 
-    carrito.forEach((item, index) => {
+    carrito.forEach(item => {
         total += item.precio;
 
-        contenedor.innerHTML += `
+        listaCarrito.innerHTML += `
             <div class="item-carrito">
                 <span>${item.nombre}</span>
                 <span>$${item.precio}</span>
@@ -95,11 +95,12 @@ function renderCarrito() {
         `;
     });
 
-    contenedor.innerHTML += `
+    listaCarrito.innerHTML += `
+        <hr>
         <div class="total-final">
             Total: $${total}
         </div>
-
-        <button class="btn-checkout">Pagar</button>
     `;
+
+    contador.textContent = carrito.length;
 }
