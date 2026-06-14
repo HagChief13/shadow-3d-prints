@@ -70,3 +70,58 @@ carrito.length=0;
 renderContador();
 spa.classList.remove("activo");
 };
+const spa = document.getElementById("spa-carrito");
+const spaLista = document.getElementById("spa-lista");
+
+document.getElementById("ver-carrito").addEventListener("click", () => {
+
+    spa.classList.add("visible");
+
+    spaLista.innerHTML = "";
+
+    if (carrito.length === 0) {
+        spaLista.innerHTML = "<p>Tu carrito está vacío</p>";
+        return;
+    }
+
+    carrito.forEach((item, i) => {
+        spaLista.innerHTML += `
+        <div class="item">
+            <img src="${item.imagen}" width="40">
+            <span>${item.nombre}</span>
+            <button onclick="eliminarItem(${i})">X</button>
+        </div>`;
+    });
+});
+
+document.getElementById("cerrar-spa").addEventListener("click", () => {
+    spa.classList.remove("visible");
+});
+
+document.getElementById("btn-solicitar").addEventListener("click", async () => {
+
+    const email = document.getElementById("email-cotizacion").value;
+
+    if (!email) {
+        alert("Ingresa un correo");
+        return;
+    }
+
+    try {
+        await db.collection("cotizaciones").add({
+            email,
+            productos: carrito,
+            fecha: new Date().toISOString()
+        });
+
+        alert("Cotización enviada");
+
+        carrito = [];
+        actualizarCarrito();
+        spa.classList.remove("visible");
+
+    } catch (e) {
+        console.error(e);
+        alert("Error al enviar");
+    }
+});
