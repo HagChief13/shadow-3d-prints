@@ -670,3 +670,63 @@ main {
 .auth-box button:hover{
     filter: brightness(.9);
 }
+
+#login, #register {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;   /* centro horizontal */
+    align-items: flex-start;   /* arriba */
+    
+    padding-top: 50px;         /* 👈 distancia desde arriba */
+
+    box-sizing: border-box;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.auth-icon {
+    font-size: 70px;
+    color: #c58b2b;
+    margin-bottom: 15px;
+}
+
+.auth-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.15);
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.auth-box input {
+    height: 45px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.auth-box button {
+    height: 45px;
+    border: none;
+    background: #c58b2b;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.auth-box button:hover {
+    filter: brightness(.9);
+}
+
+
