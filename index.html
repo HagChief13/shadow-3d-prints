@@ -48,48 +48,43 @@
     </div>
 
     <!-- NAV -->
-    <nav class="nav" id="nav">
+   <nav class="nav" id="nav">
 
-        <button id="cerrar" class="cerrar-menu">
-            <i class="bi bi-x-lg"></i>
-        </button>
+    <button id="cerrar" class="cerrar-menu">
+        <i class="bi bi-x-lg"></i>
+    </button>
 
-        <ul class="nav-list">
+    <ul class="nav-list">
 
-            <li>
-                <a href="#" id="btn-inicio">Inicio</a>
-            </li>
+        <li><a href="#" data-section="inicio" class="nav-link">Inicio</a></li>
 
-            <li>
-                <a href="#" id="btn-categorias">Categorías</a>
+        <li>
+            <a href="#" id="btn-categorias">Categorías</a>
 
-                <ul class="subcategorias">
-                    <li><a href="#" data-categoria="hogar">Hogar</a></li>
-                    <li><a href="#" data-categoria="decoracion">Decoración</a></li>
-                    <li><a href="#" data-categoria="utilidad">Utilidad</a></li>
-                    <li><a href="#" data-categoria="llaveros">Llaveros</a></li>
-                    <li><a href="#" data-categoria="figuras">Figuras</a></li>
-                </ul>
+            <ul class="subcategorias">
+                <li><a href="#" data-categoria="hogar">Hogar</a></li>
+                <li><a href="#" data-categoria="decoracion">Decoración</a></li>
+                <li><a href="#" data-categoria="utilidad">Utilidad</a></li>
+                <li><a href="#" data-categoria="llaveros">Llaveros</a></li>
+                <li><a href="#" data-categoria="figuras">Figuras</a></li>
+            </ul>
 
-            </li>
+        </li>
 
-            <li>
-                <a href="#" id="btn-quienes">Quiénes Somos</a>
-            </li>
+        <li><a href="#" data-section="quienes" class="nav-link">Quiénes Somos</a></li>
+        <li><a href="#" data-section="contacto" class="nav-link">Contacto</a></li>
 
-            <li>
-                <a href="#" id="btn-contacto">Contacto</a>
-            </li>
+        <!-- AUTH SEPARADO -->
+        <li><a href="#" data-section="login" class="nav-link">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+        </a></li>
 
-            <li class="menu-auth">
-                <a href="#" id="btn-auth">
-                    <i class="bi bi-person-circle"></i>
-                    Crear cuenta / Login
-                </a>
-            </li>
+        <li><a href="#" data-section="register" class="nav-link">
+            <i class="bi bi-person-plus"></i> Crear cuenta
+        </a></li>
 
-        </ul>
-    </nav>
+    </ul>
+</nav>
 
 </header>
 
