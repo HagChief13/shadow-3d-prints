@@ -169,31 +169,31 @@ header {
 }
 
 .nav.visible {
-    left: 0;
+    transform: translateX(0);
 }
 
 .nav::before {
     content: "";
-
     position: fixed;
-
     top: 0;
-    left: 35vw;
+    left: 0;
 
-    width: calc(100vw - 35vw);
+    width: 100vw;
     height: 100vh;
 
     background: rgba(0,0,0,.5);
 
     opacity: 0;
-
     pointer-events: none;
 
     transition: opacity .35s ease;
+
+    z-index: -1;
 }
 
 .nav.visible::before {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .nav-list {
