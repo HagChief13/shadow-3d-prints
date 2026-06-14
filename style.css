@@ -960,3 +960,6 @@ section {
         right: 2.5vw;
     }
 }
+body {
+    overflow-x: hidden;
+}
