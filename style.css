@@ -272,50 +272,24 @@ main {
 
 /* CATÁLOGO */
 
+.subcategorias {
+    display: none;
+    list-style: none;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.subcategorias.visible {
+    display: block;
+}
+
+/* CATÁLOGO (IMPORTANTE: no lo controles con display none rígido) */
 #catalogo {
     display: none;
-
     justify-content: center;
-
     flex-wrap: wrap;
-
     gap: 30px;
-
     padding: 40px;
-}
-
-.tarjeta-producto {
-    width: 260px;
-
-    background: white;
-
-    border-radius: 10px;
-
-    overflow: hidden;
-
-    box-shadow: 0 4px 12px rgba(0,0,0,.15);
-
-    text-align: center;
-
-    padding: 15px;
-}
-
-.tarjeta-producto img {
-    width: 100%;
-
-    height: 220px;
-
-    object-fit: cover;
-}
-
-.tarjeta-producto h3 {
-    margin-top: 15px;
-}
-
-.tarjeta-producto p {
-    margin-top: 10px;
-
-    font-weight: bold;
 }
 
 /* BOTÓN PRODUCTO */
