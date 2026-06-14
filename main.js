@@ -29,19 +29,18 @@ window.addEventListener("scroll", () => {
 });
 
 /* ==========================
-   SPA SYSTEM
+   SPA SYSTEM (CORE)
 ========================== */
 
 const sections = document.querySelectorAll("main section");
 
 function showSection(id) {
-    sections.forEach(sec => sec.style.display = "none");
-    const target = document.getElementById(id);
-    if (target) target.style.display = "block";
+    sections.forEach(sec => sec.classList.remove("active"));
+    document.getElementById(id)?.classList.add("active");
 }
 
 /* ==========================
-   NAVEGACIÓN MENU (SPA)
+   NAV SPA
 ========================== */
 
 document.querySelectorAll("[data-section]").forEach(link => {
@@ -56,7 +55,7 @@ document.querySelectorAll("[data-section]").forEach(link => {
 });
 
 /* ==========================
-   BOTONES MANUALES (fallback)
+   BOTONES MANUALES
 ========================== */
 
 document.getElementById("btn-inicio")?.addEventListener("click", (e) => {
@@ -75,14 +74,11 @@ document.getElementById("btn-quienes")?.addEventListener("click", (e) => {
 });
 
 /* ==========================
-   SUBCATEGORÍAS TOGGLE
+   SUBCATEGORÍAS
 ========================== */
 
-const btnCategorias = document.getElementById("btn-categorias");
-
-btnCategorias?.addEventListener("click", (e) => {
+document.getElementById("btn-categorias")?.addEventListener("click", (e) => {
     e.preventDefault();
-
     document.querySelector(".subcategorias")?.classList.toggle("visible");
 });
 
@@ -91,7 +87,6 @@ btnCategorias?.addEventListener("click", (e) => {
 ========================== */
 
 const catalogo = document.getElementById("catalogo");
-const inicio = document.getElementById("inicio");
 
 const productos = {
     hogar: [
@@ -116,18 +111,17 @@ const productos = {
     ]
 };
 
-function mostrarCategoria(categoria) {
+function mostrarCategoria(cat) {
 
     showSection("catalogo");
 
-    catalogo.style.display = "flex";
     catalogo.innerHTML = "";
 
-    productos[categoria]?.forEach(producto => {
+    productos[cat]?.forEach(p => {
         catalogo.innerHTML += `
             <div class="tarjeta-producto">
-                <img src="${producto.imagen}" alt="${producto.nombre}">
-                <h3>${producto.nombre}</h3>
+                <img src="${p.imagen}" alt="${p.nombre}">
+                <h3>${p.nombre}</h3>
                 <button class="agregar-carrito">Añadir al carrito</button>
             </div>
         `;
@@ -138,10 +132,10 @@ function mostrarCategoria(categoria) {
 }
 
 /* categorías */
-document.querySelectorAll("[data-categoria]").forEach(cat => {
-    cat.addEventListener("click", (e) => {
+document.querySelectorAll("[data-categoria]").forEach(btn => {
+    btn.addEventListener("click", (e) => {
         e.preventDefault();
-        mostrarCategoria(cat.dataset.categoria);
+        mostrarCategoria(btn.dataset.categoria);
         document.querySelector(".subcategorias")?.classList.remove("visible");
     });
 });
@@ -189,28 +183,26 @@ botonCarrito?.addEventListener("click", () => {
     panelCarrito?.classList.toggle("visible");
 });
 
-/* eliminar carrito */
+/* eliminar */
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("eliminar")) {
-        const index = e.target.dataset.index;
-        carrito.splice(index, 1);
+        carrito.splice(e.target.dataset.index, 1);
         actualizarCarrito();
     }
 });
 
-/* agregar carrito */
+/* agregar */
 document.addEventListener("click", (e) => {
     if (!e.target.classList.contains("agregar-carrito")) return;
 
-    const tarjeta = e.target.closest(".tarjeta-producto");
-    if (!tarjeta) return;
+    const card = e.target.closest(".tarjeta-producto");
+    if (!card) return;
 
-    const nombre = tarjeta.querySelector("h3")?.textContent;
-    const imagen = tarjeta.querySelector("img")?.src;
+    carrito.push({
+        nombre: card.querySelector("h3")?.textContent,
+        imagen: card.querySelector("img")?.src
+    });
 
-    if (!nombre || !imagen) return;
-
-    carrito.push({ nombre, imagen });
     actualizarCarrito();
 });
 
@@ -220,10 +212,7 @@ actualizarCarrito();
    CHECKOUT
 ========================== */
 
-const btnCheckout = document.getElementById("btn-checkout");
-const checkout = document.getElementById("checkout");
-
-btnCheckout?.addEventListener("click", () => {
+document.getElementById("btn-checkout")?.addEventListener("click", () => {
     showSection("checkout");
     panelCarrito?.classList.remove("visible");
 });
