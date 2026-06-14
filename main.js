@@ -217,8 +217,43 @@ document.getElementById("btn-checkout")?.addEventListener("click", () => {
     panelCarrito?.classList.remove("visible");
 });
 
+const sections = document.querySelectorAll("main section");
+
+function showSection(id) {
+
+    sections.forEach(sec => {
+        sec.style.display = "none";
+    });
+
+    const target = document.getElementById(id);
+
+    if (target) {
+        target.style.display = "block";
+    }
+
+    // 👇 SI VUELVE A INICIO, RESTAURA TODO EL ESTADO INICIAL
+    if (id === "inicio") {
+        restaurarInicio();
+    }
+}
+
 /* ==========================
-   INICIO DEFAULT
+   ESTADO INICIAL
 ========================== */
 
-showSection("inicio");
+function restaurarInicio() {
+
+    // cerrar catálogo
+    const catalogo = document.getElementById("catalogo");
+    if (catalogo) catalogo.style.display = "none";
+
+    // cerrar checkout
+    const checkout = document.getElementById("checkout");
+    if (checkout) checkout.style.display = "none";
+
+    // cerrar panel carrito
+    document.getElementById("panel-carrito")?.classList.remove("visible");
+
+    // opcional: volver scroll arriba
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
