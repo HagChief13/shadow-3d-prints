@@ -51,15 +51,9 @@ function actualizarCarrito() {
 
         listaCarrito.innerHTML += `
             <div class="item-carrito">
-
                 <img src="${item.imagen}" width="40">
-
                 <span>${item.nombre}</span>
-
-                <button onclick="eliminarItem(${index})">
-                    X
-                </button>
-
+                <button onclick="eliminarItem(${index})">X</button>
             </div>
         `;
     });
@@ -96,11 +90,10 @@ document.addEventListener("click", (e) => {
 ========================== */
 
 const btnCategorias = document.getElementById("btn-categorias");
-const subcategorias = document.getElementById("subcategorias");
 
-btnCategorias.addEventListener("click", (e) => {
+btnCategorias?.addEventListener("click", (e) => {
     e.preventDefault();
-    subcategorias.classList.toggle("visible");
+    document.querySelector(".subcategorias")?.classList.toggle("visible");
 });
 
 /* ==========================
@@ -148,15 +141,9 @@ function mostrarCategoria(categoria) {
 
         catalogo.innerHTML += `
             <div class="tarjeta-producto">
-
                 <img src="${producto.imagen}" alt="${producto.nombre}">
-
                 <h3>${producto.nombre}</h3>
-
-                <button class="agregar-carrito">
-                    Añadir al carrito
-                </button>
-
+                <button class="agregar-carrito">Añadir al carrito</button>
             </div>
         `;
     });
@@ -165,6 +152,10 @@ function mostrarCategoria(categoria) {
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+/* ==========================
+   CATEGORÍAS CLICK
+========================== */
 
 document.querySelectorAll("[data-categoria]").forEach(link => {
     link.addEventListener("click", (e) => {
@@ -201,7 +192,7 @@ botonCarrito.addEventListener("click", () => {
 });
 
 /* ==========================
-   COTIZACIÓN (FIREBASE - PRO)
+   CHECKOUT
 ========================== */
 
 const btnCheckout = document.getElementById("btn-checkout");
@@ -219,7 +210,7 @@ btnCheckout.addEventListener("click", () => {
 });
 
 /* ==========================
-   ENVIAR A FIREBASE (PRO)
+   FIREBASE
 ========================== */
 
 form.addEventListener("submit", async (e) => {
@@ -233,7 +224,7 @@ form.addEventListener("submit", async (e) => {
     const comuna = form.querySelectorAll("input")[3].value;
     const mensaje = form.querySelector("textarea")?.value || "";
 
-    const productos = carrito.map(p => p.nombre);
+    const productosCarrito = carrito.map(p => p.nombre);
 
     try {
         await db.collection("cotizaciones").add({
@@ -243,7 +234,7 @@ form.addEventListener("submit", async (e) => {
             direccion,
             comuna,
             mensaje,
-            productos,
+            productos: productosCarrito,
             estado: "pendiente",
             fecha: new Date().toISOString()
         });
@@ -260,23 +251,21 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
+/* ==========================
+   SPA SYSTEM (UNIFICADO)
+========================== */
+
 const sections = document.querySelectorAll("main section");
 
-// ==========================
-// MOSTRAR SECCIÓN SPA
-// ==========================
 function showSection(id) {
-    sections.forEach(sec => {
-        sec.style.display = "none";
-    });
+
+    sections.forEach(sec => sec.style.display = "none");
 
     const target = document.getElementById(id);
     if (target) target.style.display = "block";
 }
 
-// ==========================
-// NAV SPA PRINCIPAL
-// ==========================
+/* NAV SPA */
 document.querySelectorAll("[data-section]").forEach(link => {
     link.addEventListener("click", (e) => {
         e.preventDefault();
@@ -284,57 +273,26 @@ document.querySelectorAll("[data-section]").forEach(link => {
         const section = link.dataset.section;
         if (section) showSection(section);
 
-        // cerrar menú móvil si existe
-        document.getElementById("nav")?.classList.remove("visible");
+        nav.classList.remove("visible");
     });
 });
 
-// ==========================
-// BOTÓN INICIO (si lo usas aparte)
-// ==========================
-const btnInicio = document.getElementById("btn-inicio");
-if (btnInicio) {
-    btnInicio.addEventListener("click", (e) => {
-        e.preventDefault();
-        showSection("inicio");
-    });
-}
-
-// ==========================
-// BOTÓN CATEGORÍAS (ARREGLADO)
-// ==========================
-const btnCategorias = document.getElementById("btn-categorias");
-
-if (btnCategorias) {
-    btnCategorias.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        // solo abre submenú, NO cambia sección
-        document.querySelector(".subcategorias")?.classList.toggle("visible");
-    });
-}
-
-// ==========================
-// CATEGORÍAS (FILTRADO SPA)
-// ==========================
+/* CATEGORÍAS SPA (solo abre catálogo) */
 document.querySelectorAll("[data-categoria]").forEach(cat => {
     cat.addEventListener("click", (e) => {
+
         e.preventDefault();
 
         const categoria = cat.dataset.categoria;
 
-        // si quieres puedes mostrar catálogo
         showSection("catalogo");
 
-        // aquí puedes luego filtrar productos
         console.log("Categoría:", categoria);
 
         document.querySelector(".subcategorias")?.classList.remove("visible");
-        document.getElementById("nav")?.classList.remove("visible");
+        nav.classList.remove("visible");
     });
 });
 
-// ==========================
-// DEFAULT SPA
-// ==========================
+/* INICIO DEFAULT */
 showSection("inicio");
