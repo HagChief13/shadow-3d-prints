@@ -63,15 +63,6 @@ function actualizarCarrito() {
     });
 }
 
-/* ELIMINAR */
-document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("eliminar")) {
-        const index = e.target.dataset.index;
-        carrito.splice(index, 1);
-        actualizarCarrito();
-    }
-});
-
 /* ABRIR CARRITO */
 botonCarrito?.addEventListener("click", () => {
     panelCarrito?.classList.toggle("visible");
