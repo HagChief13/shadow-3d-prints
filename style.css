@@ -149,23 +149,23 @@ header {
 
 .nav {
     position: fixed;
-
     top: 0;
-    left: -35vw;
+    left: 0;
 
-    width: 35vw;
+    width: 280px;
+    max-width: 85vw;
     height: 100vh;
 
     background: #c58b2b;
-
     padding: 2rem;
 
     display: flex;
     flex-direction: column;
 
-    transition: left .35s ease;
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
 
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .nav.visible {
