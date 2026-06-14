@@ -236,3 +236,68 @@ document.getElementById("btn-checkout")?.addEventListener("click", () => {
 window.addEventListener("DOMContentLoaded", () => {
     showSection("inicio");
 });
+/* ==========================
+   AUTH FIREBASE
+========================== */
+
+const loginEmail = document.getElementById("loginEmail");
+const loginPass = document.getElementById("loginPass");
+const loginBtn = document.getElementById("loginBtn");
+const loginMsg = document.getElementById("loginMsg");
+
+const regName = document.getElementById("regName");
+const regEmail = document.getElementById("regEmail");
+const regPass = document.getElementById("regPass");
+const registerBtn = document.getElementById("registerBtn");
+const authMsg = document.getElementById("authMsg");
+
+/* REGISTER */
+registerBtn?.addEventListener("click", async () => {
+    try {
+        const user = await auth.createUserWithEmailAndPassword(
+            regEmail.value,
+            regPass.value
+        );
+
+        await user.user.updateProfile({
+            displayName: regName.value
+        });
+
+        authMsg.textContent = "Cuenta creada correctamente";
+        authMsg.style.color = "green";
+
+        showSection("login");
+
+    } catch (error) {
+        authMsg.textContent = error.message;
+        authMsg.style.color = "red";
+    }
+});
+
+/* LOGIN */
+loginBtn?.addEventListener("click", async () => {
+    try {
+        await auth.signInWithEmailAndPassword(
+            loginEmail.value,
+            loginPass.value
+        );
+
+        loginMsg.textContent = "Login correcto";
+        loginMsg.style.color = "green";
+
+        showSection("inicio");
+
+    } catch (error) {
+        loginMsg.textContent = error.message;
+        loginMsg.style.color = "red";
+    }
+});
+
+/* LOGOUT AUTOMÁTICO / SESIÓN */
+auth.onAuthStateChanged(user => {
+    if (user) {
+        console.log("Usuario logeado:", user.email);
+    } else {
+        console.log("Sin sesión");
+    }
+});
