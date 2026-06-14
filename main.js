@@ -259,3 +259,26 @@ form.addEventListener("submit", async (e) => {
         alert("Error al enviar cotización");
     }
 });
+
+const btnAuth = document.getElementById("btn-auth");
+const authSection = document.getElementById("auth");
+const inicio = document.getElementById("inicio");
+const catalogo = document.getElementById("catalogo");
+
+btnAuth.addEventListener("click", (e) => {
+
+    e.preventDefault();
+
+    // ocultar todo
+    inicio.style.display = "none";
+    catalogo.style.display = "none";
+    checkout.style.display = "none";
+
+    // cerrar menú
+    nav.classList.remove("visible");
+
+    // mostrar auth
+    authSection.style.display = "block";
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
