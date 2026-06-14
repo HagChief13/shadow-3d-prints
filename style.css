@@ -730,3 +730,206 @@ main {
 }
 
 
+/* ==========================
+   HOME MODERNO (SPA INICIO)
+========================== */
+
+#inicio {
+    padding: 60px 40px;
+    position: relative;
+}
+
+/* HERO */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+}
+
+/* TEXTO */
+.hero-texto {
+    flex: 1;
+}
+
+.hero-texto h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.hero-texto p {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+/* BOTÓN */
+.btn-hero {
+    padding: 12px 20px;
+    border: none;
+    background: #c58b2b;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-hero:hover {
+    filter: brightness(.9);
+}
+
+/* IMAGEN PRINCIPAL */
+.hero-img {
+    width: 380px;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+.hero-img img {
+    width: 100%;
+}
+
+/* IMAGEN DIAGONAL */
+.hero-diagonal {
+    position: absolute;
+    width: 220px;
+    right: 80px;
+    bottom: -60px;
+
+    transform: rotate(-20deg);
+    opacity: 0.9;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,.25));
+}
+
+/* BENEFICIOS */
+.beneficios {
+    display: flex;
+    gap: 20px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1;
+    min-width: 200px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.10);
+    text-align: center;
+}
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+
+.tarjeta-producto {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer; /* 👈 mano */
+}
+
+.tarjeta-producto:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.25);
+}
+
+.tarjeta-producto:active {
+    transform: translateY(-6px) scale(0.98);
+}
+
+.modal-producto {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,.7);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.modal-producto.active {
+    display: flex;
+}
+
+.modal-contenido {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-contenido img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.cerrar-modal {
+    position: absolute;
+    margin-top: -10px;
+    margin-left: 150px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+body {
+    background: linear-gradient(-45deg, #000, #1a1a1a, #c58b2b, #000);
+    background-size: 400% 400%;
+    animation: fondoAnimado 12s ease infinite;
+}
+
+/* sombreado encima */
+body {
+    transition: background 0.5s ease;
+}
+
+/* DEFAULT */
+body.default-bg {
+    background: linear-gradient(-45deg, #000, #1a1a1a, #c58b2b);
+}
+
+/* LLAVEROS */
+body.llaveros-bg {
+    background: url("llaveros-pattern.png");
+    background-size: 120px;
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+/* opcional overlay oscuro para legibilidad */
+body.llaveros-bg::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* animación */
+@keyframes fondoAnimado {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

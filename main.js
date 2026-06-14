@@ -1,22 +1,58 @@
 const nav = document.querySelector("#nav");
 const abrir = document.querySelector("#abrir");
 const cerrar = document.querySelector("#cerrar");
+const inputBusqueda = document.querySelector(".busqueda input");
+inputBusqueda?.addEventListener("input", () => {
+    const query = inputBusqueda.value.toLowerCase().trim();
 
+    if (query.length < 2) return;
+
+    buscarProductos(query);
+});
+function buscarProductos(query) {
+
+    showSection("catalogo");
+
+    if (!catalogo) return;
+
+    catalogo.innerHTML = "";
+
+    let resultados = [];
+
+    Object.values(productos).forEach(categoria => {
+        categoria.forEach(p => {
+            if (p.nombre.toLowerCase().includes(query)) {
+                resultados.push(p);
+            }
+        });
+    });
+
+    if (resultados.length === 0) {
+        catalogo.innerHTML = `<p style="text-align:center;width:100%">No se encontraron productos</p>`;
+        return;
+    }
+
+    resultados.forEach(p => {
+        catalogo.innerHTML += `
+            <div class="tarjeta-producto">
+                <img src="${p.imagen}" alt="${p.nombre}">
+                <h3>${p.nombre}</h3>
+                <button class="agregar-carrito">Añadir al carrito</button>
+            </div>
+        `;
+    });
+}
 /* ==========================
    MENU LATERAL
 ========================== */
 
-if (abrir && nav) {
-    abrir.addEventListener("click", () => {
-        nav.classList.add("visible");
-    });
-}
+abrir?.addEventListener("click", () => {
+    nav?.classList.add("visible");
+});
 
-if (cerrar && nav) {
-    cerrar.addEventListener("click", () => {
-        nav.classList.remove("visible");
-    });
-}
+cerrar?.addEventListener("click", () => {
+    nav?.classList.remove("visible");
+});
 
 /* ==========================
    VOLVER ARRIBA
@@ -30,21 +66,45 @@ window.addEventListener("scroll", () => {
 });
 
 /* ==========================
-   SPA CORE
+   SPA CORE (FIX ANTI-PARPADEO)
 ========================== */
 
 const sections = document.querySelectorAll("main section");
 
-function showSection(id) {
-    sections.forEach(sec => sec.style.display = "none");
+function hideAllSections() {
+    sections.forEach(sec => {
+        sec.style.display = "none";
+    });
+}
+
+function showSection(id, firstLoad = false) {
+
+    hideAllSections();
 
     const target = document.getElementById(id);
-    if (target) target.style.display = "block";
 
-    if (id === "inicio") restaurarInicio();
+    if (target) {
+        target.style.display = "block";
+    }
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (id === "inicio") {
+        restaurarInicio();
+    }
+
+    if (!firstLoad) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 }
+
+/* ==========================
+   INICIO ESTABLE (CLAVE)
+========================== */
+
+function initApp() {
+    showSection("inicio", true); // 👈 evita scroll + parpadeo inicial
+}
+
+window.addEventListener("DOMContentLoaded", initApp);
 
 /* ==========================
    RESTAURAR INICIO
@@ -75,16 +135,6 @@ document.querySelectorAll("[data-section]").forEach(link => {
 document.getElementById("btn-inicio")?.addEventListener("click", (e) => {
     e.preventDefault();
     showSection("inicio");
-});
-
-document.getElementById("btn-contacto")?.addEventListener("click", (e) => {
-    e.preventDefault();
-    showSection("contacto");
-});
-
-document.getElementById("btn-quienes")?.addEventListener("click", (e) => {
-    e.preventDefault();
-    showSection("quienes");
 });
 
 /* ==========================
@@ -145,7 +195,10 @@ function mostrarCategoria(cat) {
     nav?.classList.remove("visible");
 }
 
-/* categorías */
+/* ==========================
+   CATEGORÍAS
+========================== */
+
 document.querySelectorAll("[data-categoria]").forEach(btn => {
     btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -190,32 +243,27 @@ function actualizarCarrito() {
     });
 }
 
-/* abrir carrito */
 botonCarrito?.addEventListener("click", () => {
     panelCarrito?.classList.toggle("visible");
 });
 
-/* eliminar */
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("eliminar")) {
         carrito.splice(e.target.dataset.index, 1);
         actualizarCarrito();
     }
-});
 
-/* agregar */
-document.addEventListener("click", (e) => {
-    if (!e.target.classList.contains("agregar-carrito")) return;
+    if (e.target.classList.contains("agregar-carrito")) {
+        const card = e.target.closest(".tarjeta-producto");
+        if (!card) return;
 
-    const card = e.target.closest(".tarjeta-producto");
-    if (!card) return;
+        carrito.push({
+            nombre: card.querySelector("h3")?.textContent,
+            imagen: card.querySelector("img")?.src
+        });
 
-    carrito.push({
-        nombre: card.querySelector("h3")?.textContent,
-        imagen: card.querySelector("img")?.src
-    });
-
-    actualizarCarrito();
+        actualizarCarrito();
+    }
 });
 
 actualizarCarrito();
@@ -228,76 +276,46 @@ document.getElementById("btn-checkout")?.addEventListener("click", () => {
     showSection("checkout");
     panelCarrito?.classList.remove("visible");
 });
-
 /* ==========================
-   INICIO AUTO
+   MODAL PRODUCTO (CLICK EN TARJETA)
 ========================== */
 
-window.addEventListener("DOMContentLoaded", () => {
-    showSection("inicio");
-});
-/* ==========================
-   AUTH FIREBASE
-========================== */
+const modal = document.getElementById("modal-producto");
+const modalImg = document.getElementById("modal-img");
+const modalTitulo = document.getElementById("modal-titulo");
+const cerrarModal = document.getElementById("cerrar-modal");
 
-const loginEmail = document.getElementById("loginEmail");
-const loginPass = document.getElementById("loginPass");
-const loginBtn = document.getElementById("loginBtn");
-const loginMsg = document.getElementById("loginMsg");
+/* ABRIR MODAL */
+document.addEventListener("click", (e) => {
 
-const regName = document.getElementById("regName");
-const regEmail = document.getElementById("regEmail");
-const regPass = document.getElementById("regPass");
-const registerBtn = document.getElementById("registerBtn");
-const authMsg = document.getElementById("authMsg");
+    // evitar conflictos con botones
+    if (
+        e.target.classList.contains("agregar-carrito") ||
+        e.target.classList.contains("eliminar") ||
+        e.target.closest("#panel-carrito")
+    ) return;
 
-/* REGISTER */
-registerBtn?.addEventListener("click", async () => {
-    try {
-        const user = await auth.createUserWithEmailAndPassword(
-            regEmail.value,
-            regPass.value
-        );
+    const card = e.target.closest(".tarjeta-producto");
+    if (!card) return;
 
-        await user.user.updateProfile({
-            displayName: regName.value
-        });
+    const img = card.querySelector("img");
+    const title = card.querySelector("h3");
 
-        authMsg.textContent = "Cuenta creada correctamente";
-        authMsg.style.color = "green";
+    if (!img || !title) return;
 
-        showSection("login");
+    modalImg.src = img.src;
+    modalTitulo.textContent = title.textContent;
 
-    } catch (error) {
-        authMsg.textContent = error.message;
-        authMsg.style.color = "red";
-    }
+    modal.classList.add("active");
 });
 
-/* LOGIN */
-loginBtn?.addEventListener("click", async () => {
-    try {
-        await auth.signInWithEmailAndPassword(
-            loginEmail.value,
-            loginPass.value
-        );
-
-        loginMsg.textContent = "Login correcto";
-        loginMsg.style.color = "green";
-
-        showSection("inicio");
-
-    } catch (error) {
-        loginMsg.textContent = error.message;
-        loginMsg.style.color = "red";
-    }
+/* CERRAR MODAL */
+cerrarModal?.addEventListener("click", () => {
+    modal.classList.remove("active");
 });
 
-/* LOGOUT AUTOMÁTICO / SESIÓN */
-auth.onAuthStateChanged(user => {
-    if (user) {
-        console.log("Usuario logeado:", user.email);
-    } else {
-        console.log("Sin sesión");
+modal?.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.classList.remove("active");
     }
 });

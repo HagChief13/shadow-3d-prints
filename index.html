@@ -84,18 +84,60 @@
 <main>
 
     <!-- INICIO -->
+    
     <section id="inicio">
-        <div class="producto">
-            <div class="foto-producto">
-                <img src="producto3.png" alt="Producto">
-            </div>
 
-            <div class="info-producto">
-                <h2>Bienvenido a nuestra tienda</h2>
-                <p>Productos impresos en 3D personalizados.</p>
-            </div>
+    <div class="hero">
+
+        <div class="hero-texto">
+            <h1>Impresión 3D personalizada</h1>
+            <p>
+                Creamos figuras, accesorios y diseños únicos en 3D hechos a medida.
+            </p>
+
+            <button class="btn-hero" data-section="catalogo">
+                Ver productos
+            </button>
         </div>
-    </section>
+
+        <div class="hero-img">
+            <img src="producto3.png" alt="Producto principal">
+        </div>
+
+    
+
+    </div>
+
+    <div class="beneficios">
+
+
+
+
+
+
+
+
+
+
+        
+        <div class="card">
+            <h3>⚡ Rápido</h3>
+            <p>Impresiones eficientes y de calidad</p>
+        </div>
+
+        <div class="card">
+            <h3>🎨 Personalizado</h3>
+            <p>Diseños únicos para cada cliente</p>
+        </div>
+
+        <div class="card">
+            <h3>📦 Envíos</h3>
+            <p>Entrega a todo Chile</p>
+        </div>
+
+    </div>
+
+</section>
 
     <!-- CATÁLOGO -->
     <section id="catalogo"></section>
@@ -193,6 +235,13 @@ firebase.initializeApp({
 const db = firebase.firestore();
 const auth = firebase.auth();
 </script>
+<div id="modal-producto" class="modal-producto">
+    <div class="modal-contenido">
+        <span id="cerrar-modal" class="cerrar-modal">×</span>
 
+        <img id="modal-img" src="" alt="">
+        <h2 id="modal-titulo"></h2>
+    </div>
+</div>
 </body>
 </html>
