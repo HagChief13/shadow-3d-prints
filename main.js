@@ -7,7 +7,7 @@ const panelCarrito = document.getElementById("panel-carrito");
 const catalogo = document.getElementById("catalogo");
 
 /* ==========================
-   SECCIONES SPA (NO BORRAR)
+   SECCIONES SPA
 ========================== */
 
 const sections = {
@@ -18,10 +18,6 @@ const sections = {
     contacto: document.getElementById("contacto"),
     quienes: document.getElementById("quienes")
 };
-
-/* ==========================
-   SPA ENGINE (CORREGIDO)
-========================== */
 
 function showSection(name) {
 
@@ -34,10 +30,7 @@ function showSection(name) {
     }
 
     nav.classList.remove("visible");
-
-    if (panelCarrito) {
-        panelCarrito.classList.remove("visible");
-    }
+    panelCarrito?.classList.remove("visible");
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -56,12 +49,11 @@ cerrar?.addEventListener("click", () => nav.classList.remove("visible"));
 const botonVolver = document.getElementById("volverArriba");
 
 window.addEventListener("scroll", () => {
-    if (!botonVolver) return;
-    botonVolver.classList.toggle("visible", window.scrollY > 300);
+    botonVolver?.classList.toggle("visible", window.scrollY > 300);
 });
 
 /* ==========================
-   CARRITO (SIN ROMPER TU LOGICA)
+   CARRITO
 ========================== */
 
 let carrito = [];
@@ -83,121 +75,44 @@ function actualizarCarrito() {
     listaCarrito.innerHTML = "";
 
     carrito.forEach((item, index) => {
-
         listaCarrito.innerHTML += `
             <div class="item-carrito">
-
                 <img src="${item.imagen}" width="40">
-
                 <span>${item.nombre}</span>
-
                 <button onclick="eliminarItem(${index})">X</button>
-
             </div>
         `;
     });
 }
 
-function eliminarItem(index) {
+window.eliminarItem = function(index) {
     carrito.splice(index, 1);
     actualizarCarrito();
-}
+};
 
 actualizarCarrito();
 
 /* ==========================
-   AGREGAR AL CARRITO
+   AGREGAR CARRITO
 ========================== */
 
 document.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("agregar-carrito")) {
 
-        const tarjeta = e.target.closest(".tarjeta-producto");
+        const card = e.target.closest(".tarjeta-producto");
 
-        if (!tarjeta) return;
-
-        const nombre = tarjeta.querySelector("h3")?.textContent || "";
-        const imagen = tarjeta.querySelector("img")?.src || "";
-
-        carrito.push({ nombre, imagen });
+        carrito.push({
+            nombre: card.querySelector("h3").textContent,
+            imagen: card.querySelector("img").src
+        });
 
         actualizarCarrito();
     }
 });
 
 /* ==========================
-   PANEL CARRITO
-========================== */
-
-carritoBtn?.addEventListener("click", () => {
-    panelCarrito?.classList.toggle("visible");
-});
-
-/* ==========================
-   CATEGORÍAS (FIX REAL SPA)
-========================== */
-
-const productos = {
-
-    hogar: [
-        { nombre: "Organizador de Escritorio", imagen: "hogar1.png" },
-        { nombre: "Porta Lápices", imagen: "hogar2.png" }
-    ],
-
-    decoracion: [
-        { nombre: "Dragón Decorativo", imagen: "decoracion1.png" },
-        { nombre: "Figura Geométrica", imagen: "decoracion2.png" }
-    ],
-
-    utilidad: [
-        { nombre: "Soporte Celular", imagen: "utilidad1.png" },
-        { nombre: "Gancho Multiuso", imagen: "utilidad2.png" }
-    ],
-
-    llaveros: [
-        { nombre: "Llavero Creeper", imagen: "llavero1.png" },
-        { nombre: "Llavero Pokéball", imagen: "llavero2.png" }
-    ],
-
-    figuras: [
-        { nombre: "Figura Minecraft", imagen: "figura1.png" },
-        { nombre: "Figura Pokémon", imagen: "figura2.png" }
-    ]
-};
-
-document.querySelectorAll("[data-categoria]").forEach(link => {
-
-    link.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        const cat = e.target.dataset.categoria;
-
-        showSection("catalogo");
-
-        catalogo.innerHTML = "";
-
-        productos[cat]?.forEach(p => {
-
-            catalogo.innerHTML += `
-                <div class="tarjeta-producto">
-
-                    <img src="${p.imagen}" alt="${p.nombre}">
-
-                    <h3>${p.nombre}</h3>
-
-                    <button class="agregar-carrito">
-                        Añadir al carrito
-                    </button>
-
-                </div>
-            `;
-        });
-    });
-});
-
-/* ==========================
-   BOTÓN CHECKOUT (FIX)
+   CHECKOUT
 ========================== */
 
 document.getElementById("btn-checkout")?.addEventListener("click", () => {
@@ -205,7 +120,7 @@ document.getElementById("btn-checkout")?.addEventListener("click", () => {
 });
 
 /* ==========================
-   ENVÍO FIREBASE (CORREGIDO)
+   ENVIO FIREBASE
 ========================== */
 
 const form = document.querySelector(".form-checkout");
@@ -223,8 +138,6 @@ form?.addEventListener("submit", async (e) => {
     const telefono = inputs[4]?.value || "";
     const mensaje = form.querySelector("textarea")?.value || "";
 
-    const productosCarrito = carrito.map(p => p.nombre);
-
     try {
 
         await db.collection("cotizaciones").add({
@@ -234,12 +147,11 @@ form?.addEventListener("submit", async (e) => {
             direccion,
             comuna,
             mensaje,
-            productos: productosCarrito,
-            estado: "pendiente",
+            productos: carrito.map(p => p.nombre),
             fecha: new Date().toISOString()
         });
 
-        alert("Cotización enviada correctamente");
+        alert("Cotización enviada");
 
         carrito = [];
         actualizarCarrito();
@@ -247,135 +159,81 @@ form?.addEventListener("submit", async (e) => {
         showSection("inicio");
 
     } catch (err) {
-        console.error(err);
         alert("Error al enviar cotización");
+        console.error(err);
     }
 });
 
 /* ==========================
-   NAV LINKS SPA
+   NAV LINKS
 ========================== */
 
-document.getElementById("btn-inicio")?.addEventListener("click", (e) => {
+document.getElementById("btn-inicio")?.addEventListener("click", e => {
     e.preventDefault();
     showSection("inicio");
 });
 
-document.getElementById("btn-auth")?.addEventListener("click", (e) => {
+document.getElementById("btn-auth")?.addEventListener("click", e => {
     e.preventDefault();
     showSection("auth");
 });
 
-document.getElementById("btn-contacto")?.addEventListener("click", (e) => {
+document.getElementById("btn-contacto")?.addEventListener("click", e => {
     e.preventDefault();
     showSection("contacto");
 });
 
-document.getElementById("btn-quienes")?.addEventListener("click", (e) => {
+document.getElementById("btn-quienes")?.addEventListener("click", e => {
     e.preventDefault();
     showSection("quienes");
 });
-/* ==========================
-   AUTH SPA CONTROL
-========================== */
-
-const authSection = document.getElementById("auth");
-
-const loginSpa = document.getElementById("login-spa");
-const registerSpa = document.getElementById("register-spa");
-
-document.getElementById("btn-auth").addEventListener("click", (e) => {
-    e.preventDefault();
-
-    showSection("auth");
-
-    loginSpa.style.display = "block";
-    registerSpa.style.display = "none";
-});
 
 /* ==========================
-   SWITCH SPA LOGIN / REGISTER
+   AUTH FIX PRO
 ========================== */
 
-document.getElementById("go-login").onclick = () => {
-    loginSpa.style.display = "block";
-    registerSpa.style.display = "none";
-};
+const loginEmail = document.getElementById("loginEmail");
+const loginPass = document.getElementById("loginPass");
+const regEmail = document.getElementById("regEmail");
+const regPass = document.getElementById("regPass");
+const authMsg = document.getElementById("authMsg");
 
-document.getElementById("go-register").onclick = () => {
-    loginSpa.style.display = "block";
-    registerSpa.style.display = "block";
-};
-
-document.getElementById("registerBtn").onclick = async () => {
-
-    const email = regEmail.value;
-    const pass = regPass.value;
+document.getElementById("loginBtn")?.addEventListener("click", async () => {
 
     try {
-
-        const res = await auth.createUserWithEmailAndPassword(email, pass);
-
-        await db.collection("users").doc(res.user.uid).set({
-            email,
-            role: "client"
-        });
-
-        authMsg.innerHTML = "Cuenta creada. <span style='color:blue;cursor:pointer' onclick='showSection(\"auth\")'>Inicia sesión</span>";
-
-    } catch (err) {
-
-        if (err.code === "auth/email-already-in-use") {
-            authMsg.innerHTML = "Ya existe la cuenta. <span style='color:blue;cursor:pointer' onclick='showSection(\"auth\")'>Inicia sesión</span>";
-        } else {
-            authMsg.innerText = err.message;
-        }
-    }
-};
-
-/* ==========================
-   LOGIN
-========================== */
-
-document.getElementById("loginBtn").onclick = async () => {
-
-    const email = loginEmail.value;
-    const pass = loginPass.value;
-
-    try {
-        await auth.signInWithEmailAndPassword(email, pass);
-
+        await auth.signInWithEmailAndPassword(loginEmail.value, loginPass.value);
         alert("Login correcto");
-
         showSection("inicio");
 
     } catch (err) {
         alert("Error login");
     }
-};
+});
 
-document.getElementById("registerBtn").onclick = async () => {
-
-    const email = regEmail.value;
-    const pass = regPass.value;
+document.getElementById("registerBtn")?.addEventListener("click", async () => {
 
     try {
 
-        const res = await auth.createUserWithEmailAndPassword(email, pass);
+        const res = await auth.createUserWithEmailAndPassword(
+            regEmail.value,
+            regPass.value
+        );
 
         await db.collection("users").doc(res.user.uid).set({
-            email,
+            email: regEmail.value,
             role: "client"
         });
 
-        authMsg.innerHTML = "Cuenta creada. <span style='color:blue;cursor:pointer' onclick='showSection(\"auth\")'>Inicia sesión</span>";
+        authMsg.innerHTML =
+            `Cuenta creada. <span style="color:blue;cursor:pointer" onclick="showSection('auth')">Iniciar sesión</span>`;
 
     } catch (err) {
 
         if (err.code === "auth/email-already-in-use") {
-            authMsg.innerHTML = "Ya existe la cuenta. <span style='color:blue;cursor:pointer' onclick='showSection(\"auth\")'>Inicia sesión</span>";
+            authMsg.innerHTML =
+                `Cuenta ya existe. <span style="color:blue;cursor:pointer" onclick="showSection('auth')">Iniciar sesión</span>`;
         } else {
-            authMsg.innerText = err.message;
+            authMsg.textContent = err.message;
         }
     }
-};
+});
