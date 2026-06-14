@@ -3,12 +3,8 @@ const abrir = document.querySelector("#abrir");
 const cerrar = document.querySelector("#cerrar");
 
 /* ==========================
-   MENU LATERAL (FIX SEGURO)
+   MENU LATERAL
 ========================== */
-
-const nav = document.querySelector("#nav");
-const abrir = document.querySelector("#abrir");
-const cerrar = document.querySelector("#cerrar");
 
 if (abrir && nav) {
     abrir.addEventListener("click", () => {
@@ -30,26 +26,24 @@ const botonVolver = document.getElementById("volverArriba");
 
 window.addEventListener("scroll", () => {
     if (!botonVolver) return;
-
     botonVolver.classList.toggle("visible", window.scrollY > 300);
 });
 
 /* ==========================
-   SPA SYSTEM (CORE ÚNICO)
+   SPA CORE
 ========================== */
 
 const sections = document.querySelectorAll("main section");
 
 function showSection(id) {
-
-    sections.forEach(sec => {
-        sec.style.display = "none";
-    });
+    sections.forEach(sec => sec.style.display = "none");
 
     const target = document.getElementById(id);
     if (target) target.style.display = "block";
 
     if (id === "inicio") restaurarInicio();
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 /* ==========================
@@ -57,13 +51,9 @@ function showSection(id) {
 ========================== */
 
 function restaurarInicio() {
-
     document.getElementById("catalogo")?.style && (document.getElementById("catalogo").style.display = "none");
     document.getElementById("checkout")?.style && (document.getElementById("checkout").style.display = "none");
-
     document.getElementById("panel-carrito")?.classList.remove("visible");
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 /* ==========================
@@ -73,10 +63,7 @@ function restaurarInicio() {
 document.querySelectorAll("[data-section]").forEach(link => {
     link.addEventListener("click", (e) => {
         e.preventDefault();
-
-        const section = link.dataset.section;
-        if (section) showSection(section);
-
+        showSection(link.dataset.section);
         nav?.classList.remove("visible");
     });
 });
@@ -139,7 +126,6 @@ const productos = {
 };
 
 function mostrarCategoria(cat) {
-
     showSection("catalogo");
 
     if (!catalogo) return;
@@ -157,17 +143,12 @@ function mostrarCategoria(cat) {
     });
 
     nav?.classList.remove("visible");
-    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* ==========================
-   CATEGORÍAS CLICK
-========================== */
-
+/* categorías */
 document.querySelectorAll("[data-categoria]").forEach(btn => {
     btn.addEventListener("click", (e) => {
         e.preventDefault();
-
         mostrarCategoria(btn.dataset.categoria);
         document.querySelector(".subcategorias")?.classList.remove("visible");
     });
@@ -249,7 +230,7 @@ document.getElementById("btn-checkout")?.addEventListener("click", () => {
 });
 
 /* ==========================
-   INICIO
+   INICIO AUTO
 ========================== */
 
 window.addEventListener("DOMContentLoaded", () => {
