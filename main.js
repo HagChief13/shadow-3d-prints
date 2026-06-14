@@ -32,8 +32,12 @@ let carrito = [];
 
 const contador = document.querySelector(".contador-carrito");
 const listaCarrito = document.getElementById("lista-carrito");
+const botonCarrito = document.getElementById("carrito");
+const panelCarrito = document.getElementById("panel-carrito");
 
 function actualizarCarrito() {
+
+    if (!contador || !listaCarrito) return;
 
     contador.textContent = carrito.length;
 
@@ -53,16 +57,45 @@ function actualizarCarrito() {
             <div class="item-carrito">
                 <img src="${item.imagen}" width="40">
                 <span>${item.nombre}</span>
-                <button onclick="eliminarItem(${index})">X</button>
+                <button class="eliminar" data-index="${index}">X</button>
             </div>
         `;
     });
 }
 
-function eliminarItem(index) {
-    carrito.splice(index, 1);
-    actualizarCarrito();
-}
+/* ELIMINAR */
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("eliminar")) {
+        const index = e.target.dataset.index;
+        carrito.splice(index, 1);
+        actualizarCarrito();
+    }
+});
+
+/* ABRIR CARRITO */
+botonCarrito?.addEventListener("click", () => {
+    panelCarrito?.classList.toggle("visible");
+});
+
+/* AGREGAR AL CARRITO */
+document.addEventListener("click", (e) => {
+
+    if (e.target.classList.contains("agregar-carrito")) {
+
+        const tarjeta = e.target.closest(".tarjeta-producto");
+
+        if (!tarjeta) return;
+
+        const nombre = tarjeta.querySelector("h3")?.textContent;
+        const imagen = tarjeta.querySelector("img")?.src;
+
+        if (!nombre || !imagen) return;
+
+        carrito.push({ nombre, imagen });
+
+        actualizarCarrito();
+    }
+});
 
 actualizarCarrito();
 
