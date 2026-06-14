@@ -146,35 +146,24 @@
 
     <!-- COTIZACIÓN (REEMPLAZA CHECKOUT) -->
 
-    <section id="checkout">
+    <section id="login" class="login-box">
+    <h2>Admin Login</h2>
 
-        <div class="checkout-contenedor">
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
 
-            <h2>Solicitar cotización</h2>
+    <button id="loginBtn">Entrar</button>
+</section>
 
-            <form class="form-checkout">
+<section id="admin" style="display:none;">
+    <h2>Panel Shopify Pro</h2>
 
-                <input type="text" placeholder="Nombre completo" required>
-                <input type="email" placeholder="Correo electrónico" required>
-                <input type="text" placeholder="Dirección" required>
-                <input type="text" placeholder="Comuna" required>
-                <input type="tel" placeholder="Teléfono" required>
+    <button id="logout">Salir</button>
 
-                <textarea placeholder="Detalles de tu solicitud (opcional)"></textarea>
+    <input id="search" placeholder="Buscar cliente...">
 
-                <div class="checkout-total">
-                    <h3>Total estimado: <span id="checkout-total"></span></h3>
-                </div>
-
-                <button type="submit" class="btn-pagar">
-                    Enviar solicitud
-                </button>
-
-            </form>
-
-        </div>
-
-    </section>
+    <div id="tabla-cotizaciones"></div>
+</section>
 
 </main>
 
@@ -203,6 +192,22 @@
 <a href="#" class="volver-arriba" id="volverArriba">↑</a>
 
 <script src="main.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_AUTH",
+  projectId: "TU_PROJECT"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+const auth = firebase.auth();
+</script>
 
 </body>
 </html>
