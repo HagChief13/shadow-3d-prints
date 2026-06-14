@@ -1,4 +1,3 @@
-
 const nav = document.querySelector("#nav");
 const abrir = document.querySelector("#abrir");
 const cerrar = document.querySelector("#cerrar");
@@ -13,6 +12,10 @@ const sections = {
     categoria: document.getElementById("categoria")
 };
 
+/* ==========================
+   SPA ENGINE (FIX REAL)
+========================== */
+
 function showSection(name) {
 
     Object.values(sections).forEach(sec => {
@@ -23,7 +26,9 @@ function showSection(name) {
         sections[name].style.display = "block";
     }
 
+    // cerrar UI flotantes
     nav.classList.remove("visible");
+    panelCarrito.classList.remove("visible");
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -90,7 +95,7 @@ function eliminarItem(index) {
 actualizarCarrito();
 
 /* ==========================
-   AGREGAR CARRITO
+   AGREGAR AL CARRITO
 ========================== */
 
 document.addEventListener("click", (e) => {
@@ -117,19 +122,15 @@ document.getElementById("carrito").addEventListener("click", () => {
 });
 
 /* ==========================
-   COTIZACIÓN - BOTÓN ARREGLADO
+   BOTÓN COTIZACIÓN (FIX)
 ========================== */
 
-const btnCheckout = document.getElementById("btn-checkout");
-
-btnCheckout.addEventListener("click", () => {
-
+document.getElementById("btn-checkout").addEventListener("click", () => {
     showSection("checkout");
-
 });
 
 /* ==========================
-   ENVIAR COTIZACIÓN
+   ENVIAR COTIZACIÓN (FIREBASE FIX)
 ========================== */
 
 const form = document.querySelector(".form-checkout");
@@ -138,71 +139,82 @@ form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    const nombre = form.querySelectorAll("input")[0].value;
-    const email = form.querySelectorAll("input")[1].value;
-    const telefono = form.querySelectorAll("input")[2].value;
-    const direccion = form.querySelectorAll("input")[3].value;
-    const comuna = form.querySelectorAll("input")[4].value;
+    const inputs = form.querySelectorAll("input");
+
+    const nombre = inputs[0].value;
+    const email = inputs[1].value;
+    const direccion = inputs[2].value;
+    const comuna = inputs[3].value;
+    const telefono = inputs[4].value;
+
     const mensaje = form.querySelector("textarea")?.value || "";
 
     const productos = carrito.map(p => p.nombre);
 
-    await db.collection("cotizaciones").add({
-        nombre,
-        email,
-        telefono,
-        direccion,
-        comuna,
-        mensaje,
-        productos,
-        estado: "pendiente",
-        fecha: new Date().toISOString()
-    });
+    try {
 
-    alert("Cotización enviada");
+        await db.collection("cotizaciones").add({
+            nombre,
+            email,
+            telefono,
+            direccion,
+            comuna,
+            mensaje,
+            productos,
+            estado: "pendiente",
+            fecha: new Date().toISOString()
+        });
 
-    carrito = [];
-    actualizarCarrito();
+        alert("Cotización enviada correctamente");
 
-    showSection("inicio");
+        carrito = [];
+        actualizarCarrito();
+
+        showSection("inicio");
+
+    } catch (err) {
+        console.error(err);
+        alert("Error al enviar cotización");
+    }
 });
 
 /* ==========================
-   NAV LINKS SPA
+   NAV SPA LINKS
 ========================== */
 
-document.getElementById("btn-inicio").onclick = (e) => {
+document.getElementById("btn-inicio").addEventListener("click", (e) => {
     e.preventDefault();
     showSection("inicio");
-};
-
-document.querySelectorAll("[data-categoria]").forEach(btn => {
-    btn.onclick = (e) => {
-        e.preventDefault();
-
-        const cat = e.target.dataset.categoria;
-
-        sections.catalogo.style.display = "block";
-        sections.inicio.style.display = "none";
-
-        nav.classList.remove("visible");
-
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
 });
 
-/* ==========================
-   AUTH / CONTACTO / QUIENES
-========================== */
-
-document.getElementById("btn-auth").onclick = (e) => {
+document.getElementById("btn-auth").addEventListener("click", (e) => {
     e.preventDefault();
     showSection("auth");
-};
-
-/* SI tienes botones, puedes agregar: */
+});
 
 document.getElementById("btn-contacto")?.addEventListener("click", (e) => {
     e.preventDefault();
     showSection("contacto");
+});
+
+document.getElementById("btn-quienes")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    showSection("quienes");
+});
+
+/* ==========================
+   CATEGORÍAS (FIX SPA LIMPIO)
+========================== */
+
+document.querySelectorAll("[data-categoria]").forEach(btn => {
+
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const cat = e.target.dataset.categoria;
+
+        showSection("catalogo");
+
+        catalogo.innerHTML = `<h2 style="padding:20px;">Categoría: ${cat}</h2>`;
+    });
 });
