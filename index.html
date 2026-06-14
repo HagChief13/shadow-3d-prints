@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Tienda 3D</title>
+    <title>Mi Tienda 3D Pro</title>
 
     <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -25,7 +25,6 @@
 
         <form class="busqueda">
             <input type="text" placeholder="Buscar productos...">
-
             <button type="submit">
                 <i class="bi bi-search"></i>
             </button>
@@ -36,7 +35,7 @@
             <span class="contador-carrito">0</span>
         </button>
 
-        <!-- PANEL DEL CARRITO -->
+        <!-- CARRITO PANEL -->
         <div id="panel-carrito" class="panel-carrito">
 
             <h3>Carrito de Compras</h3>
@@ -47,21 +46,15 @@
 
             <hr>
 
-            <div class="resumen-carrito">
-                <p><span id="subtotal"></span></p>
-                <p><span id="iva"></span></p>
-                <p class="total-final"><span id="total"></span></p>
-
-                <button id="btn-checkout" class="btn-checkout">
-                    Solicitar cotización
-                </button>
-            </div>
+            <button id="btn-checkout" class="btn-checkout">
+                Solicitar cotización
+            </button>
 
         </div>
 
     </div>
 
-    <!-- MENU -->
+    <!-- NAV SPA -->
     <nav class="nav" id="nav">
 
         <button id="cerrar" class="cerrar-menu">
@@ -77,7 +70,7 @@
             <li>
                 <a href="#" id="btn-categorias">Categorías</a>
 
-                <ul class="subcategorias" id="subcategorias">
+                <ul class="subcategorias">
                     <li><a href="#" data-categoria="hogar">Hogar</a></li>
                     <li><a href="#" data-categoria="decoracion">Decoración</a></li>
                     <li><a href="#" data-categoria="utilidad">Utilidad</a></li>
@@ -86,12 +79,20 @@
                 </ul>
             </li>
 
-            <li><a href="#">Quiénes Somos</a></li>
-            <li><a href="#">Contacto</a></li>
+            <li>
+                <a href="#" id="btn-quienes">Quiénes Somos</a>
+            </li>
 
-            <!-- LOGIN SPA -->
+            <li>
+                <a href="#" id="btn-contacto">Contacto</a>
+            </li>
+
+            <!-- LOGIN / ADMIN (PRO LEVEL FIX) -->
             <li class="menu-auth">
-                <a href="#" id="btn-auth">Crear cuenta / Login</a>
+                <a href="#" id="btn-auth">
+                    <i class="bi bi-person-circle"></i>
+                    Crear cuenta / Login
+                </a>
             </li>
 
         </ul>
@@ -104,33 +105,23 @@
 
     <!-- INICIO -->
     <section id="inicio">
-
         <div class="producto">
-
             <div class="foto-producto">
                 <img src="producto3.png" alt="Producto">
             </div>
 
             <div class="info-producto">
-
                 <h2>Bienvenido a nuestra tienda</h2>
-
-                <p>
-                    Aquí encontrarás productos impresos en 3D para decoración,
-                    hogar, utilidad, figuras y mucho más.
-                </p>
-
+                <p>Productos impresos en 3D personalizados.</p>
             </div>
-
         </div>
-
     </section>
 
-    <!-- CATALOGO -->
-    <section id="catalogo"></section>
+    <!-- CATALOGO (SPA DINÁMICO) -->
+    <section id="catalogo" style="display:none;"></section>
 
-    <!-- COTIZACION -->
-    <section id="checkout">
+    <!-- CHECKOUT -->
+    <section id="checkout" style="display:none;">
 
         <div class="checkout-contenedor">
 
@@ -144,11 +135,7 @@
                 <input type="text" placeholder="Comuna" required>
                 <input type="tel" placeholder="Teléfono" required>
 
-                <textarea placeholder="Detalles de tu solicitud (opcional)"></textarea>
-
-                <div class="checkout-total">
-                    <h3>Total estimado: <span id="checkout-total"></span></h3>
-                </div>
+                <textarea placeholder="Detalles"></textarea>
 
                 <button type="submit" class="btn-pagar">
                     Enviar solicitud
@@ -160,12 +147,12 @@
 
     </section>
 
-    <!-- AUTH SPA -->
+    <!-- AUTH (ADMIN READY) -->
     <section id="auth" style="display:none; padding:40px;">
 
         <div class="auth-container">
 
-            <h2>Bienvenido</h2>
+            <h2>Login / Registro</h2>
 
             <div class="auth-box">
 
@@ -195,63 +182,46 @@
         </div>
 
     </section>
-<!-- AGREGA ESTAS SECCIONES FALTANTES -->
 
-<section id="contacto" style="display:none; padding:40px;">
-    <h2>Contacto</h2>
-    <p>Escríbenos para cotizaciones o dudas.</p>
-</section>
+    <!-- CONTACTO -->
+    <section id="contacto" style="display:none;">
+        <h2>Contacto</h2>
+        <p>Escríbenos para cotizaciones</p>
+    </section>
 
-<section id="quienes" style="display:none; padding:40px;">
-    <h2>Quiénes somos</h2>
-    <p>Somos una tienda de impresión 3D personalizada.</p>
-</section>
+    <!-- QUIENES SOMOS -->
+    <section id="quienes" style="display:none;">
+        <h2>Quiénes somos</h2>
+        <p>Empresa de impresión 3D personalizada</p>
+    </section>
 
-<section id="categoria" style="display:none;"></section>
 </main>
 
 <footer class="footer">
 
     <div>
         <h3>Contacto</h3>
-        <p>Teléfono: +56 9 1234 5678</p>
-        <p>Email: contacto@mitienda.cl</p>
-    </div>
-
-    <div>
-        <h3>Síguenos</h3>
-        <p>Instagram</p>
-        <p>Facebook</p>
-        <p>Discord</p>
-    </div>
-
-    <div>
-        <h3>QR</h3>
-        <img src="qr.png" alt="QR" width="120">
+        <p>Tel: +56 9 1234 5678</p>
     </div>
 
 </footer>
 
-<a href="#" class="volver-arriba" id="volverArriba">↑</a>
+<a href="#" id="volverArriba">↑</a>
 
 <script src="main.js"></script>
 
-<!-- FIREBASE -->
+<!-- FIREBASE (PRO READY) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <script>
-const firebaseConfig = {
+firebase.initializeApp({
   apiKey: "TU_API_KEY",
   authDomain: "TU_AUTH",
   projectId: "TU_PROJECT"
-};
-
-firebase.initializeApp(firebaseConfig);
+});
 
 const db = firebase.firestore();
-const auth = firebase.auth();
 </script>
 
 </body>
