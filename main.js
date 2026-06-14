@@ -103,3 +103,25 @@ function renderCarrito() {
         <button class="btn-checkout">Pagar</button>
     `;
 }
+const sections = document.querySelectorAll("main section");
+
+function showSection(id) {
+    sections.forEach(sec => {
+        sec.style.display = "none";
+    });
+
+    const target = document.getElementById(id);
+    if (target) target.style.display = "block";
+}
+
+// LINKS SPA
+document.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const section = link.dataset.section;
+        if (section) showSection(section);
+    });
+});
+
+// INICIO POR DEFECTO
+showSection("inicio");
