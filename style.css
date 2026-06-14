@@ -975,3 +975,25 @@ body {
         order: 3;
     }
 }
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: rgba(0,0,0,.5);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.3s ease;
+
+    z-index: 2500;
+}
+
+.overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
