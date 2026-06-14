@@ -639,3 +639,17 @@ main {
     border-radius:15px;
     width:400px;
 }
+
+
+.menu-auth{
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.3);
+}
+
+.menu-auth a{
+    font-weight: bold;
+    color: #fff;
+    display: block;
+    padding: 10px 0;
+}
