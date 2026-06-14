@@ -962,3 +962,38 @@ section {
 body {
     overflow-x: hidden;
 }
+
+
+/* FIX HEADER ALIGNMENT */
+.barra-superior {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+@media (max-width: 768px) {
+
+    .barra-superior {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+
+    .logo {
+        flex: 0 0 auto;
+    }
+
+    .abrir-menu {
+        flex: 0 0 auto;
+    }
+
+    .carrito {
+        flex: 0 0 auto;
+        margin-left: auto; /* 👈 lo fuerza a la derecha SIEMPRE */
+    }
+
+    .busqueda {
+        width: 100%;
+        order: 3;
+    }
+}
