@@ -653,3 +653,35 @@ main {
     display: block;
     padding: 10px 0;
 }
+
+.auth-container{
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.2);
+}
+
+.auth-box{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.auth-box input{
+    height: 45px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.auth-box button{
+    height: 45px;
+    border: none;
+    border-radius: 8px;
+    background: #c58b2b;
+    color: white;
+    cursor: pointer;
+}
