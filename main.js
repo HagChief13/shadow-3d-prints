@@ -1,3 +1,4 @@
+
 const nav = document.querySelector("#nav");
 const abrir = document.querySelector("#abrir");
 const cerrar = document.querySelector("#cerrar");
@@ -25,7 +26,16 @@ window.addEventListener("scroll", () => {
 });
 
 /* ==========================
-   CARRITO
+   ELEMENTOS BASE
+========================== */
+
+const inicio = document.getElementById("inicio");
+const catalogo = document.getElementById("catalogo");
+const checkout = document.getElementById("checkout");
+const authSection = document.getElementById("auth");
+
+/* ==========================
+   CARRITO (SIN PRECIOS)
 ========================== */
 
 let carrito = [];
@@ -107,9 +117,6 @@ btnCategorias.addEventListener("click", (e) => {
    PRODUCTOS
 ========================== */
 
-const catalogo = document.getElementById("catalogo");
-const inicio = document.getElementById("inicio");
-
 const productos = {
 
     hogar: [
@@ -167,6 +174,7 @@ function mostrarCategoria(categoria) {
 }
 
 document.querySelectorAll("[data-categoria]").forEach(link => {
+
     link.addEventListener("click", (e) => {
         e.preventDefault();
         mostrarCategoria(e.target.dataset.categoria);
@@ -201,25 +209,24 @@ botonCarrito.addEventListener("click", () => {
 });
 
 /* ==========================
-   COTIZACIÓN (FIREBASE - PRO)
+   COTIZACIÓN (FIREBASE)
 ========================== */
 
 const btnCheckout = document.getElementById("btn-checkout");
-const checkout = document.getElementById("checkout");
 const form = document.querySelector(".form-checkout");
 
 btnCheckout.addEventListener("click", () => {
 
-    checkout.style.display = "block";
     inicio.style.display = "none";
     catalogo.style.display = "none";
+    checkout.style.display = "block";
     panelCarrito.classList.remove("visible");
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 /* ==========================
-   ENVIAR A FIREBASE (PRO)
+   ENVIAR COTIZACIÓN A FIREBASE
 ========================== */
 
 form.addEventListener("submit", async (e) => {
@@ -233,9 +240,10 @@ form.addEventListener("submit", async (e) => {
     const comuna = form.querySelectorAll("input")[3].value;
     const mensaje = form.querySelector("textarea")?.value || "";
 
-    const productos = carrito.map(p => p.nombre);
+    const productosCarrito = carrito.map(p => p.nombre);
 
     try {
+
         await db.collection("cotizaciones").add({
             nombre,
             email,
@@ -243,7 +251,7 @@ form.addEventListener("submit", async (e) => {
             direccion,
             comuna,
             mensaje,
-            productos,
+            productos: productosCarrito,
             estado: "pendiente",
             fecha: new Date().toISOString()
         });
@@ -253,6 +261,7 @@ form.addEventListener("submit", async (e) => {
         carrito = [];
         actualizarCarrito();
         checkout.style.display = "none";
+        inicio.style.display = "block";
 
     } catch (error) {
         console.error(error);
@@ -260,24 +269,20 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-const btnAuth = document.getElementById("btn-auth");
-const authSection = document.getElementById("auth");
-const inicio = document.getElementById("inicio");
-const catalogo = document.getElementById("catalogo");
+/* ==========================
+   AUTH SPA (SIN LOGIN ADMIN DUPLICADO)
+========================== */
 
-btnAuth.addEventListener("click", (e) => {
+document.getElementById("btn-auth").addEventListener("click", (e) => {
 
     e.preventDefault();
 
-    // ocultar todo
     inicio.style.display = "none";
     catalogo.style.display = "none";
     checkout.style.display = "none";
 
-    // cerrar menú
     nav.classList.remove("visible");
 
-    // mostrar auth
     authSection.style.display = "block";
 
     window.scrollTo({ top: 0, behavior: "smooth" });
