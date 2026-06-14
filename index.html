@@ -37,45 +37,31 @@
         </button>
 
         <!-- PANEL DEL CARRITO -->
-
         <div id="panel-carrito" class="panel-carrito">
 
             <h3>Carrito de Compras</h3>
 
             <div id="lista-carrito">
-
-                <p class="carrito-vacio">
-                    Tu carrito está vacío
-                </p>
-
+                <p class="carrito-vacio">Tu carrito está vacío</p>
             </div>
 
             <hr>
 
             <div class="resumen-carrito">
-
-                <p>
-                    <span id="subtotal"></span>
-                </p>
-
-                <p>
-                    <span id="iva"></span>
-                </p>
-
-                <p class="total-final">
-                    <span id="total"></span>
-                </p>
+                <p><span id="subtotal"></span></p>
+                <p><span id="iva"></span></p>
+                <p class="total-final"><span id="total"></span></p>
 
                 <button id="btn-checkout" class="btn-checkout">
                     Solicitar cotización
                 </button>
-
             </div>
 
         </div>
 
     </div>
 
+    <!-- MENU -->
     <nav class="nav" id="nav">
 
         <button id="cerrar" class="cerrar-menu">
@@ -85,36 +71,29 @@
         <ul class="nav-list">
 
             <li>
-                <a href="#" id="btn-inicio">
-                    Inicio
-                </a>
+                <a href="#" id="btn-inicio">Inicio</a>
             </li>
 
             <li>
-
-                <a href="#" id="btn-categorias">
-                    Categorías
-                </a>
+                <a href="#" id="btn-categorias">Categorías</a>
 
                 <ul class="subcategorias" id="subcategorias">
-
                     <li><a href="#" data-categoria="hogar">Hogar</a></li>
                     <li><a href="#" data-categoria="decoracion">Decoración</a></li>
                     <li><a href="#" data-categoria="utilidad">Utilidad</a></li>
                     <li><a href="#" data-categoria="llaveros">Llaveros</a></li>
                     <li><a href="#" data-categoria="figuras">Figuras</a></li>
-
                 </ul>
-
             </li>
 
             <li><a href="#">Quiénes Somos</a></li>
             <li><a href="#">Contacto</a></li>
-<li class="menu-auth">
-    <a href="#" id="btn-auth">
-        Crear cuenta / Login
-    </a>
-</li>
+
+            <!-- LOGIN SPA -->
+            <li class="menu-auth">
+                <a href="#" id="btn-auth">Crear cuenta / Login</a>
+            </li>
+
         </ul>
 
     </nav>
@@ -123,6 +102,7 @@
 
 <main>
 
+    <!-- INICIO -->
     <section id="inicio">
 
         <div class="producto">
@@ -146,62 +126,76 @@
 
     </section>
 
+    <!-- CATALOGO -->
     <section id="catalogo"></section>
 
-    <!-- COTIZACIÓN (REEMPLAZA CHECKOUT) -->
+    <!-- COTIZACION -->
+    <section id="checkout">
 
-    <section id="login" class="login-box">
-    <h2>Admin Login</h2>
+        <div class="checkout-contenedor">
 
-    <input id="email" type="email" placeholder="Email">
-    <input id="password" type="password" placeholder="Password">
+            <h2>Solicitar cotización</h2>
 
-    <button id="loginBtn">Entrar</button>
-</section>
+            <form class="form-checkout">
 
-<section id="admin" style="display:none;">
-    <h2>Panel Shopify Pro</h2>
+                <input type="text" placeholder="Nombre completo" required>
+                <input type="email" placeholder="Correo electrónico" required>
+                <input type="text" placeholder="Dirección" required>
+                <input type="text" placeholder="Comuna" required>
+                <input type="tel" placeholder="Teléfono" required>
 
-    <button id="logout">Salir</button>
+                <textarea placeholder="Detalles de tu solicitud (opcional)"></textarea>
 
-    <input id="search" placeholder="Buscar cliente...">
+                <div class="checkout-total">
+                    <h3>Total estimado: <span id="checkout-total"></span></h3>
+                </div>
 
-    <div id="tabla-cotizaciones"></div>
-</section>
-<section id="auth" style="display:none; padding:40px;">
+                <button type="submit" class="btn-pagar">
+                    Enviar solicitud
+                </button>
 
-    <div class="auth-container">
-
-        <h2>Bienvenido</h2>
-
-        <div class="auth-box">
-
-            <h3>Login</h3>
-
-            <input type="email" placeholder="Correo">
-            <input type="password" placeholder="Contraseña">
-
-            <button>Entrar</button>
+            </form>
 
         </div>
 
-        <hr>
+    </section>
 
-        <div class="auth-box">
+    <!-- AUTH SPA -->
+    <section id="auth" style="display:none; padding:40px;">
 
-            <h3>Crear cuenta</h3>
+        <div class="auth-container">
 
-            <input type="text" placeholder="Nombre">
-            <input type="email" placeholder="Correo">
-            <input type="password" placeholder="Contraseña">
+            <h2>Bienvenido</h2>
 
-            <button>Crear cuenta</button>
+            <div class="auth-box">
+
+                <h3>Login</h3>
+
+                <input type="email" placeholder="Correo">
+                <input type="password" placeholder="Contraseña">
+
+                <button>Entrar</button>
+
+            </div>
+
+            <hr>
+
+            <div class="auth-box">
+
+                <h3>Crear cuenta</h3>
+
+                <input type="text" placeholder="Nombre">
+                <input type="email" placeholder="Correo">
+                <input type="password" placeholder="Contraseña">
+
+                <button>Crear cuenta</button>
+
+            </div>
 
         </div>
 
-    </div>
+    </section>
 
-</section>
 </main>
 
 <footer class="footer">
@@ -229,6 +223,8 @@
 <a href="#" class="volver-arriba" id="volverArriba">↑</a>
 
 <script src="main.js"></script>
+
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
