@@ -97,8 +97,6 @@ document.addEventListener("click", (e) => {
     }
 });
 
-actualizarCarrito();
-
 /* ==========================
    AGREGAR AL CARRITO
 ========================== */
