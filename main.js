@@ -307,55 +307,31 @@ document.getElementById("go-register").onclick = () => {
     registerSpa.style.display = "block";
 };
 
-/* ==========================
-   REGISTER (FIREBASE REAL)
-========================== */
+document.getElementById("registerBtn").onclick = async () => {
 
-const registerBtn = document.getElementById("register-btn");
-const loginBtn = document.getElementById("login-btn");
-
-const msg = document.getElementById("auth-msg");
-
-registerBtn.addEventListener("click", async () => {
-
-    const email = document.getElementById("register-email").value;
-    const password = document.getElementById("register-password").value;
+    const email = regEmail.value;
+    const pass = regPass.value;
 
     try {
 
-        await auth.createUserWithEmailAndPassword(email, password);
+        const res = await auth.createUserWithEmailAndPassword(email, pass);
 
-        msg.style.color = "green";
-        msg.textContent = "Cuenta creada correctamente. Puedes iniciar sesión.";
+        await db.collection("users").doc(res.user.uid).set({
+            email,
+            role: "client"
+        });
 
-        // auto switch a login
-        loginSpa.style.display = "block";
-        registerSpa.style.display = "none";
+        authMsg.innerHTML = "Cuenta creada. <span style='color:blue;cursor:pointer' onclick='showSection(\"auth\")'>Inicia sesión</span>";
 
-    } catch (error) {
+    } catch (err) {
 
-        if (error.code === "auth/email-already-in-use") {
-
-            msg.style.color = "red";
-            msg.innerHTML = `
-                La cuenta ya existe. 
-                <br>
-                <span id="go-login-link" style="color:blue; cursor:pointer;">
-                    ¿Deseas iniciar sesión?
-                </span>
-            `;
-
-            document.getElementById("go-login-link").onclick = () => {
-                loginSpa.style.display = "block";
-                registerSpa.style.display = "none";
-            };
-
+        if (err.code === "auth/email-already-in-use") {
+            authMsg.innerHTML = "Ya existe la cuenta. <span style='color:blue;cursor:pointer' onclick='showSection(\"auth\")'>Inicia sesión</span>";
         } else {
-            msg.style.color = "red";
-            msg.textContent = error.message;
+            authMsg.innerText = err.message;
         }
     }
-});
+};
 
 /* ==========================
    LOGIN
