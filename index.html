@@ -35,7 +35,7 @@
             <span class="contador-carrito">0</span>
         </button>
 
-        <!-- CARRITO PANEL -->
+        <!-- PANEL CARRITO -->
         <div id="panel-carrito" class="panel-carrito">
 
             <h3>Carrito de Compras</h3>
@@ -54,7 +54,7 @@
 
     </div>
 
-    <!-- NAV SPA -->
+    <!-- NAV -->
     <nav class="nav" id="nav">
 
         <button id="cerrar" class="cerrar-menu">
@@ -63,9 +63,7 @@
 
         <ul class="nav-list">
 
-            <li>
-                <a href="#" id="btn-inicio">Inicio</a>
-            </li>
+            <li><a href="#" id="btn-inicio">Inicio</a></li>
 
             <li>
                 <a href="#" id="btn-categorias">Categorías</a>
@@ -79,15 +77,10 @@
                 </ul>
             </li>
 
-            <li>
-                <a href="#" id="btn-quienes">Quiénes Somos</a>
-            </li>
+            <li><a href="#" id="btn-quienes">Quiénes Somos</a></li>
+            <li><a href="#" id="btn-contacto">Contacto</a></li>
 
-            <li>
-                <a href="#" id="btn-contacto">Contacto</a>
-            </li>
-
-            <!-- LOGIN / ADMIN (PRO LEVEL FIX) -->
+            <!-- LOGIN FIX (NO CAMBIA TU DISEÑO) -->
             <li class="menu-auth">
                 <a href="#" id="btn-auth">
                     <i class="bi bi-person-circle"></i>
@@ -103,116 +96,107 @@
 
 <main>
 
-    <!-- INICIO -->
-    <section id="inicio">
-        <div class="producto">
-            <div class="foto-producto">
-                <img src="producto3.png" alt="Producto">
-            </div>
+<!-- INICIO -->
+<section id="inicio">
 
-            <div class="info-producto">
-                <h2>Bienvenido a nuestra tienda</h2>
-                <p>Productos impresos en 3D personalizados.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CATALOGO (SPA DINÁMICO) -->
-    <section id="catalogo" style="display:none;"></section>
-
-    <!-- CHECKOUT -->
-    <section id="checkout" style="display:none;">
-
-        <div class="checkout-contenedor">
-
-            <h2>Solicitar cotización</h2>
-
-            <form class="form-checkout">
-
-                <input type="text" placeholder="Nombre completo" required>
-                <input type="email" placeholder="Correo electrónico" required>
-                <input type="text" placeholder="Dirección" required>
-                <input type="text" placeholder="Comuna" required>
-                <input type="tel" placeholder="Teléfono" required>
-
-                <textarea placeholder="Detalles"></textarea>
-
-                <button type="submit" class="btn-pagar">
-                    Enviar solicitud
-                </button>
-
-            </form>
-
+    <div class="producto">
+        <div class="foto-producto">
+            <img src="producto3.png" alt="Producto">
         </div>
 
-    </section>
-
-    <!-- AUTH (ADMIN READY) -->
-    <section id="auth" style="display:none; padding:40px;">
-
-        <div class="auth-container">
-
-            <h2>Login / Registro</h2>
-
-            <div class="auth-box">
-
-                <h3>Login</h3>
-
-                <input type="email" placeholder="Correo">
-                <input type="password" placeholder="Contraseña">
-
-                <button>Entrar</button>
-
-            </div>
-
-            <hr>
-
-            <div class="auth-box">
-
-                <h3>Crear cuenta</h3>
-
-                <input type="text" placeholder="Nombre">
-                <input type="email" placeholder="Correo">
-                <input type="password" placeholder="Contraseña">
-
-                <button>Crear cuenta</button>
-
-            </div>
-
+        <div class="info-producto">
+            <h2>Bienvenido a nuestra tienda</h2>
+            <p>Productos impresos en 3D personalizados.</p>
         </div>
-
-    </section>
-
-    <!-- CONTACTO -->
-    <section id="contacto" style="display:none;">
-        <h2>Contacto</h2>
-        <p>Escríbenos para cotizaciones</p>
-    </section>
-
-    <!-- QUIENES SOMOS -->
-    <section id="quienes" style="display:none;">
-        <h2>Quiénes somos</h2>
-        <p>Empresa de impresión 3D personalizada</p>
-    </section>
-
-</main>
-
-<footer class="footer">
-
-    <div>
-        <h3>Contacto</h3>
-        <p>Tel: +56 9 1234 5678</p>
     </div>
 
-</footer>
+</section>
+
+<!-- CATALOGO -->
+<section id="catalogo" style="display:none;"></section>
+
+<!-- CHECKOUT -->
+<section id="checkout" style="display:none;">
+
+    <div class="checkout-contenedor">
+
+        <h2>Solicitar cotización</h2>
+
+        <form class="form-checkout">
+
+            <input type="text" placeholder="Nombre completo" required>
+            <input type="email" placeholder="Correo electrónico" required>
+            <input type="text" placeholder="Dirección" required>
+            <input type="text" placeholder="Comuna" required>
+            <input type="tel" placeholder="Teléfono" required>
+
+            <textarea placeholder="Detalles"></textarea>
+
+            <button type="submit">Enviar solicitud</button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- AUTH (FIX PRO) -->
+<section id="auth" style="display:none; padding:40px;">
+
+    <h2>Login / Registro</h2>
+
+    <div id="loginBox">
+
+        <h3>Login</h3>
+
+        <input id="loginEmail" type="email" placeholder="Correo">
+        <input id="loginPass" type="password" placeholder="Contraseña">
+
+        <button id="loginBtn">Entrar</button>
+
+    </div>
+
+    <hr>
+
+    <div id="registerBox">
+
+        <h3>Crear cuenta</h3>
+
+        <input id="regName" type="text" placeholder="Nombre">
+        <input id="regEmail" type="email" placeholder="Correo">
+        <input id="regPass" type="password" placeholder="Contraseña">
+
+        <button id="registerBtn">Crear cuenta</button>
+
+        <!-- MENSAJE IMPORTANTE -->
+        <p id="authMsg"></p>
+
+    </div>
+
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" style="display:none;">
+    <h2>Contacto</h2>
+    <p>Escríbenos para cotizaciones</p>
+</section>
+
+<!-- QUIENES -->
+<section id="quienes" style="display:none;">
+    <h2>Quiénes somos</h2>
+    <p>Empresa de impresión 3D personalizada</p>
+</section>
+
+</main>
 
 <a href="#" id="volverArriba">↑</a>
 
 <script src="main.js"></script>
 
-<!-- FIREBASE (PRO READY) -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <script>
 firebase.initializeApp({
@@ -222,6 +206,7 @@ firebase.initializeApp({
 });
 
 const db = firebase.firestore();
+const auth = firebase.auth();
 </script>
 
 </body>
