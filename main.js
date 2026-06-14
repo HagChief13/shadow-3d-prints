@@ -337,20 +337,45 @@ document.getElementById("registerBtn").onclick = async () => {
    LOGIN
 ========================== */
 
-loginBtn.addEventListener("click", async () => {
+document.getElementById("loginBtn").onclick = async () => {
 
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
+    const email = loginEmail.value;
+    const pass = loginPass.value;
 
     try {
+        await auth.signInWithEmailAndPassword(email, pass);
 
-        await auth.signInWithEmailAndPassword(email, password);
-
-        alert("Login exitoso");
+        alert("Login correcto");
 
         showSection("inicio");
 
-    } catch (error) {
-        alert("Error: " + error.message);
+    } catch (err) {
+        alert("Error login");
     }
-});
+};
+
+document.getElementById("registerBtn").onclick = async () => {
+
+    const email = regEmail.value;
+    const pass = regPass.value;
+
+    try {
+
+        const res = await auth.createUserWithEmailAndPassword(email, pass);
+
+        await db.collection("users").doc(res.user.uid).set({
+            email,
+            role: "client"
+        });
+
+        authMsg.innerHTML = "Cuenta creada. <span style='color:blue;cursor:pointer' onclick='showSection(\"auth\")'>Inicia sesión</span>";
+
+    } catch (err) {
+
+        if (err.code === "auth/email-already-in-use") {
+            authMsg.innerHTML = "Ya existe la cuenta. <span style='color:blue;cursor:pointer' onclick='showSection(\"auth\")'>Inicia sesión</span>";
+        } else {
+            authMsg.innerText = err.message;
+        }
+    }
+};
