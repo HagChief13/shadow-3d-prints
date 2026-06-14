@@ -68,25 +68,6 @@ botonCarrito?.addEventListener("click", () => {
     panelCarrito?.classList.toggle("visible");
 });
 
-/* AGREGAR AL CARRITO */
-document.addEventListener("click", (e) => {
-
-    if (e.target.classList.contains("agregar-carrito")) {
-
-        const tarjeta = e.target.closest(".tarjeta-producto");
-
-        if (!tarjeta) return;
-
-        const nombre = tarjeta.querySelector("h3")?.textContent;
-        const imagen = tarjeta.querySelector("img")?.src;
-
-        if (!nombre || !imagen) return;
-
-        carrito.push({ nombre, imagen });
-
-        actualizarCarrito();
-    }
-});
 
 /* ==========================
    AGREGAR AL CARRITO
