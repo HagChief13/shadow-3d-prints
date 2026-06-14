@@ -2,13 +2,8 @@ const nav = document.querySelector("#nav");
 const abrir = document.querySelector("#abrir");
 const cerrar = document.querySelector("#cerrar");
 
-abrir.addEventListener("click", () => {
-    nav.classList.add("visible");
-});
-
-cerrar.addEventListener("click", () => {
-    nav.classList.remove("visible");
-});
+abrir.addEventListener("click", () => nav.classList.add("visible"));
+cerrar.addEventListener("click", () => nav.classList.remove("visible"));
 
 /* ==========================
    VOLVER ARRIBA
@@ -44,24 +39,15 @@ function actualizarCarrito() {
     }
 
     contador.classList.remove("vacio");
-
     listaCarrito.innerHTML = "";
 
     carrito.forEach((item, index) => {
-
         listaCarrito.innerHTML += `
-            <div class="item-carrito">
-
-                <img src="${item.imagen}" width="40">
-
-                <span>${item.nombre}</span>
-
-                <button onclick="eliminarItem(${index})">
-                    X
-                </button>
-
-            </div>
-        `;
+        <div class="item-carrito">
+            <img src="${item.imagen}" width="40">
+            <span>${item.nombre}</span>
+            <button onclick="eliminarItem(${index})">X</button>
+        </div>`;
     });
 }
 
@@ -73,22 +59,21 @@ function eliminarItem(index) {
 actualizarCarrito();
 
 /* ==========================
-   AGREGAR AL CARRITO
+   AGREGAR CARRITO
 ========================== */
 
 document.addEventListener("click", (e) => {
 
-    if (e.target.classList.contains("agregar-carrito")) {
+    const btn = e.target.closest(".agregar-carrito");
+    if (!btn) return;
 
-        const tarjeta = e.target.closest(".tarjeta-producto");
+    const tarjeta = btn.closest(".tarjeta-producto");
 
-        const nombre = tarjeta.querySelector("h3").textContent;
-        const imagen = tarjeta.querySelector("img").src;
+    const nombre = tarjeta.querySelector("h3").textContent;
+    const imagen = tarjeta.querySelector("img").src;
 
-        carrito.push({ nombre, imagen });
-
-        actualizarCarrito();
-    }
+    carrito.push({ nombre, imagen });
+    actualizarCarrito();
 });
 
 /* ==========================
@@ -104,92 +89,6 @@ btnCategorias.addEventListener("click", (e) => {
 });
 
 /* ==========================
-   PRODUCTOS
-========================== */
-
-const catalogo = document.getElementById("catalogo");
-const inicio = document.getElementById("inicio");
-
-const productos = {
-
-    hogar: [
-        { nombre: "Organizador de Escritorio", imagen: "hogar1.png" },
-        { nombre: "Porta Lápices", imagen: "hogar2.png" }
-    ],
-
-    decoracion: [
-        { nombre: "Dragón Decorativo", imagen: "decoracion1.png" },
-        { nombre: "Figura Geométrica", imagen: "decoracion2.png" }
-    ],
-
-    utilidad: [
-        { nombre: "Soporte Celular", imagen: "utilidad1.png" },
-        { nombre: "Gancho Multiuso", imagen: "utilidad2.png" }
-    ],
-
-    llaveros: [
-        { nombre: "Llavero Creeper", imagen: "llavero1.png" },
-        { nombre: "Llavero Pokéball", imagen: "llavero2.png" }
-    ],
-
-    figuras: [
-        { nombre: "Figura Minecraft", imagen: "figura1.png" },
-        { nombre: "Figura Pokémon", imagen: "figura2.png" }
-    ]
-};
-
-function mostrarCategoria(categoria) {
-
-    inicio.style.display = "none";
-    catalogo.style.display = "flex";
-    catalogo.innerHTML = "";
-
-    productos[categoria].forEach(producto => {
-
-        catalogo.innerHTML += `
-            <div class="tarjeta-producto">
-
-                <img src="${producto.imagen}" alt="${producto.nombre}">
-
-                <h3>${producto.nombre}</h3>
-
-                <button class="agregar-carrito">
-                    Añadir al carrito
-                </button>
-
-            </div>
-        `;
-    });
-
-    nav.classList.remove("visible");
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-document.querySelectorAll("[data-categoria]").forEach(link => {
-    link.addEventListener("click", (e) => {
-        e.preventDefault();
-        mostrarCategoria(e.target.dataset.categoria);
-    });
-});
-
-/* ==========================
-   VOLVER A INICIO
-========================== */
-
-document.getElementById("btn-inicio").addEventListener("click", (e) => {
-
-    e.preventDefault();
-
-    catalogo.style.display = "none";
-    inicio.style.display = "block";
-
-    nav.classList.remove("visible");
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-/* ==========================
    CARRITO PANEL
 ========================== */
 
@@ -201,7 +100,70 @@ botonCarrito.addEventListener("click", () => {
 });
 
 /* ==========================
-   COTIZACIÓN (FIREBASE - PRO)
+   PRODUCTOS
+========================== */
+
+const catalogo = document.getElementById("catalogo");
+const inicio = document.getElementById("inicio");
+
+const productos = {
+    hogar: [
+        { nombre: "Organizador", imagen: "hogar1.png" },
+        { nombre: "Porta Lápices", imagen: "hogar2.png" }
+    ],
+    decoracion: [
+        { nombre: "Dragón", imagen: "decoracion1.png" }
+    ],
+    utilidad: [
+        { nombre: "Soporte Celular", imagen: "utilidad1.png" }
+    ],
+    llaveros: [
+        { nombre: "Creeper", imagen: "llavero1.png" }
+    ],
+    figuras: [
+        { nombre: "Minecraft", imagen: "figura1.png" }
+    ]
+};
+
+function mostrarCategoria(cat) {
+
+    inicio.style.display = "none";
+    catalogo.style.display = "flex";
+    catalogo.innerHTML = "";
+
+    productos[cat].forEach(p => {
+        catalogo.innerHTML += `
+        <div class="tarjeta-producto">
+            <img src="${p.imagen}">
+            <h3>${p.nombre}</h3>
+            <button class="agregar-carrito">Añadir</button>
+        </div>`;
+    });
+
+    nav.classList.remove("visible");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.querySelectorAll("[data-categoria]").forEach(link => {
+    link.addEventListener("click", (e) => {
+        e.preventDefault();
+        mostrarCategoria(e.target.dataset.categoria);
+    });
+});
+
+/* ==========================
+   INICIO
+========================== */
+
+document.getElementById("btn-inicio").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    catalogo.style.display = "none";
+    inicio.style.display = "block";
+});
+
+/* ==========================
+   CHECKOUT + FIREBASE FIX
 ========================== */
 
 const btnCheckout = document.getElementById("btn-checkout");
@@ -209,53 +171,41 @@ const checkout = document.getElementById("checkout");
 const form = document.querySelector(".form-checkout");
 
 btnCheckout.addEventListener("click", () => {
-
     checkout.style.display = "block";
     inicio.style.display = "none";
     catalogo.style.display = "none";
     panelCarrito.classList.remove("visible");
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-/* ==========================
-   ENVIAR A FIREBASE (PRO)
-========================== */
+if (form) {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-form.addEventListener("submit", async (e) => {
+        const inputs = form.querySelectorAll("input, textarea");
 
-    e.preventDefault();
-
-    const nombre = form.querySelector("input[type='text']").value;
-    const email = form.querySelector("input[type='email']").value;
-    const telefono = form.querySelector("input[type='tel']").value;
-    const direccion = form.querySelectorAll("input")[2].value;
-    const comuna = form.querySelectorAll("input")[3].value;
-    const mensaje = form.querySelector("textarea")?.value || "";
-
-    const productos = carrito.map(p => p.nombre);
-
-    try {
-        await db.collection("cotizaciones").add({
-            nombre,
-            email,
-            telefono,
-            direccion,
-            comuna,
-            mensaje,
-            productos,
-            estado: "pendiente",
+        const data = {
+            nombre: inputs[0].value,
+            email: inputs[1].value,
+            telefono: inputs[2].value,
+            direccion: inputs[3].value,
+            comuna: inputs[4].value,
+            mensaje: inputs[5]?.value || "",
+            productos: carrito.map(p => p.nombre),
             fecha: new Date().toISOString()
-        });
+        };
 
-        alert("Cotización enviada correctamente");
+        try {
+            await db.collection("cotizaciones").add(data);
 
-        carrito = [];
-        actualizarCarrito();
-        checkout.style.display = "none";
+            alert("Cotización enviada");
 
-    } catch (error) {
-        console.error(error);
-        alert("Error al enviar cotización");
-    }
-});
+            carrito = [];
+            actualizarCarrito();
+            checkout.style.display = "none";
+
+        } catch (err) {
+            console.error(err);
+            alert("Error al enviar");
+        }
+    });
+}
