@@ -335,36 +335,135 @@ header {
 }
 
 /* ==========================
-   RESPONSIVE FIX
+   BASE FIX
+========================== */
+
+body {
+    overflow-x: hidden;
+}
+
+/* ==========================
+   HEADER FIX GENERAL
+========================== */
+
+.barra-superior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* ==========================
+   CARRO FIJO DERECHA
+========================== */
+
+.carrito {
+    margin-left: auto;
+    flex: 0 0 auto;
+}
+
+/* ==========================
+   RESPONSIVE TABLET + MOBILE
 ========================== */
 
 @media (max-width: 768px) {
 
-    .barra-superior {
-        flex-wrap: nowrap;
+    /* HEADER MÁS LIMPIO */
+    header {
+        padding: 0.8rem;
     }
 
+    .barra-superior {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .logo {
+        width: 90px;
+    }
+
+    .abrir-menu,
+    .cerrar-menu,
+    .carrito {
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+    }
+
+    /* BUSCADOR FULL WIDTH */
     .busqueda {
         order: 3;
         width: 100%;
         margin: 10px 0 0 0;
     }
 
-    .carrito {
-        margin-left: auto;
+    .busqueda input {
+        height: 45px;
     }
 
+    .busqueda button {
+        width: 50px;
+    }
+
+    /* PRODUCTOS */
     .producto {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 1.5rem;
     }
 
     .foto-producto {
         width: 100%;
     }
 
+    /* CATALOGO */
+    #catalogo {
+        padding: 15px;
+    }
+
     .tarjeta-producto {
         width: 100%;
+    }
+
+    /* PANEL CARRITO FULL MOBILE */
+    .panel-carrito {
+        width: 92vw;
+        right: 4vw;
+        top: 70px;
+    }
+
+    /* MENU MÁS COMPACTO */
+    .nav {
+        width: 80vw;
+    }
+}
+
+/* ==========================
+   CELULARES PEQUEÑOS
+========================== */
+
+@media (max-width: 480px) {
+
+    .logo {
+        width: 75px;
+    }
+
+    .tarjeta-producto img {
+        height: 180px;
+    }
+
+    .abrir-menu,
+    .cerrar-menu,
+    .carrito {
+        font-size: 1.8rem;
+    }
+
+    .busqueda input {
+        height: 40px;
+    }
+
+    .busqueda button {
+        width: 45px;
     }
 }
