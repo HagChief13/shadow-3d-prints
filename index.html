@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Tienda 3D Pro</title>
 
-    <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -58,10 +56,13 @@
 
         <ul class="nav-list">
 
-            <li><a href="#" id="btn-inicio">Inicio</a></li>
+            <li>
+                <a href="#" id="btn-inicio">Inicio</a>
+            </li>
 
             <li>
                 <a href="#" id="btn-categorias">Categorías</a>
+
                 <ul class="subcategorias">
                     <li><a href="#" data-categoria="hogar">Hogar</a></li>
                     <li><a href="#" data-categoria="decoracion">Decoración</a></li>
@@ -69,10 +70,16 @@
                     <li><a href="#" data-categoria="llaveros">Llaveros</a></li>
                     <li><a href="#" data-categoria="figuras">Figuras</a></li>
                 </ul>
+
             </li>
 
-            <li><a href="#" id="btn-quienes">Quiénes Somos</a></li>
-            <li><a href="#" id="btn-contacto">Contacto</a></li>
+            <li>
+                <a href="#" id="btn-quienes">Quiénes Somos</a>
+            </li>
+
+            <li>
+                <a href="#" id="btn-contacto">Contacto</a>
+            </li>
 
             <li class="menu-auth">
                 <a href="#" id="btn-auth">
@@ -82,76 +89,103 @@
             </li>
 
         </ul>
-
     </nav>
 
 </header>
 
 <main>
 
-<section id="inicio">
-    <div class="producto">
-        <div class="foto-producto">
-            <img src="producto3.png" alt="Producto">
+    <!-- INICIO -->
+    <section id="inicio">
+
+        <div class="producto">
+
+            <div class="foto-producto">
+                <img src="producto3.png" alt="Producto">
+            </div>
+
+            <div class="info-producto">
+                <h2>Bienvenido a nuestra tienda</h2>
+                <p>Productos impresos en 3D personalizados.</p>
+            </div>
+
         </div>
 
-        <div class="info-producto">
-            <h2>Bienvenido a nuestra tienda</h2>
-            <p>Productos impresos en 3D personalizados.</p>
+    </section>
+
+    <!-- CATALOGO -->
+    <section id="catalogo" style="display:none;"></section>
+
+    <!-- CHECKOUT -->
+    <section id="checkout" style="display:none;">
+
+        <div class="checkout-contenedor">
+
+            <h2>Solicitar cotización</h2>
+
+            <form class="form-checkout">
+
+                <input type="text" placeholder="Nombre completo" required>
+                <input type="email" placeholder="Correo electrónico" required>
+                <input type="text" placeholder="Dirección" required>
+                <input type="text" placeholder="Comuna" required>
+                <input type="tel" placeholder="Teléfono" required>
+
+                <textarea placeholder="Detalles"></textarea>
+
+                <button type="submit">Enviar solicitud</button>
+
+            </form>
+
         </div>
-    </div>
-</section>
 
-<section id="catalogo" style="display:none;"></section>
+    </section>
 
-<section id="checkout" style="display:none;">
-    <div class="checkout-contenedor">
-        <h2>Solicitar cotización</h2>
+    <!-- AUTH -->
+    <section id="auth" style="display:none; padding:40px;">
 
-        <form class="form-checkout">
-            <input type="text" placeholder="Nombre completo" required>
-            <input type="email" placeholder="Correo electrónico" required>
-            <input type="text" placeholder="Dirección" required>
-            <input type="text" placeholder="Comuna" required>
-            <input type="tel" placeholder="Teléfono" required>
-            <textarea placeholder="Detalles"></textarea>
+        <h2>Login / Registro</h2>
 
-            <button type="submit">Enviar solicitud</button>
-        </form>
-    </div>
-</section>
+        <div id="loginBox">
 
-<section id="auth" style="display:none; padding:40px;">
-    <h2>Login / Registro</h2>
+            <h3>Login</h3>
 
-    <div id="loginBox">
-        <h3>Login</h3>
-        <input id="loginEmail" type="email" placeholder="Correo">
-        <input id="loginPass" type="password" placeholder="Contraseña">
-        <button id="loginBtn">Entrar</button>
-    </div>
+            <input id="loginEmail" type="email" placeholder="Correo">
+            <input id="loginPass" type="password" placeholder="Contraseña">
 
-    <hr>
+            <button id="loginBtn">Entrar</button>
 
-    <div id="registerBox">
-        <h3>Crear cuenta</h3>
-        <input id="regName" type="text" placeholder="Nombre">
-        <input id="regEmail" type="email" placeholder="Correo">
-        <input id="regPass" type="password" placeholder="Contraseña">
-        <button id="registerBtn">Crear cuenta</button>
-        <p id="authMsg"></p>
-    </div>
-</section>
+        </div>
 
-<section id="contacto" style="display:none;">
-    <h2>Contacto</h2>
-    <p>Escríbenos para cotizaciones</p>
-</section>
+        <hr>
 
-<section id="quienes" style="display:none;">
-    <h2>Quiénes somos</h2>
-    <p>Empresa de impresión 3D personalizada</p>
-</section>
+        <div id="registerBox">
+
+            <h3>Crear cuenta</h3>
+
+            <input id="regName" type="text" placeholder="Nombre">
+            <input id="regEmail" type="email" placeholder="Correo">
+            <input id="regPass" type="password" placeholder="Contraseña">
+
+            <button id="registerBtn">Crear cuenta</button>
+
+            <p id="authMsg"></p>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" style="display:none;">
+        <h2>Contacto</h2>
+        <p>Escríbenos para cotizaciones</p>
+    </section>
+
+    <!-- QUIENES -->
+    <section id="quienes" style="display:none;">
+        <h2>Quiénes somos</h2>
+        <p>Empresa de impresión 3D personalizada</p>
+    </section>
 
 </main>
 
@@ -159,16 +193,16 @@
 
 <script src="main.js"></script>
 
-<!-- FIREBASE CORRECTO -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <script>
 firebase.initializeApp({
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_AUTH",
-  projectId: "TU_PROJECT"
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_AUTH",
+    projectId: "TU_PROJECT"
 });
 
 const db = firebase.firestore();
