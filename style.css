@@ -27,16 +27,19 @@ header {
     gap: 1rem;
 }
 
-.logo {
-    width: 120px;
-}
-
 .barra-superior {
     width: 95%;
     max-width: 1400px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
+}
+
+/* LOGO */
+.logo {
+    width: 120px;
 }
 
 /* ==========================
@@ -48,13 +51,18 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+
     background: transparent;
     border: none;
     cursor: pointer;
+
     color: white;
     font-size: 2.5rem;
+
     width: 60px;
     height: 60px;
+
+    flex: 0 0 auto;
 }
 
 /* ==========================
@@ -64,7 +72,6 @@ header {
 .busqueda {
     flex: 1;
     display: flex;
-    margin: 0 30px;
 }
 
 .busqueda input {
@@ -74,6 +81,7 @@ header {
     outline: none;
     padding: 0 20px;
     font-size: 1rem;
+
     border-radius: 30px 0 0 30px;
 }
 
@@ -82,11 +90,12 @@ header {
     border: none;
     background: white;
     cursor: pointer;
+
     border-radius: 0 30px 30px 0;
 }
 
 /* ==========================
-   CARRITO
+   CARRITO (SIEMPRE DERECHA)
 ========================== */
 
 .carrito {
@@ -94,8 +103,11 @@ header {
     border: none;
     color: white;
     cursor: pointer;
+
     font-size: 2.5rem;
+
     position: relative;
+
     flex: 0 0 auto;
     margin-left: auto;
 }
@@ -104,14 +116,19 @@ header {
     position: absolute;
     top: 0;
     right: -5px;
+
     width: 22px;
     height: 22px;
+
     background: red;
     color: white;
+
     border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: .8rem;
     font-weight: bold;
 }
@@ -121,7 +138,7 @@ header {
 }
 
 /* ==========================
-   MENÚ LATERAL (CORREGIDO 100%)
+   MENU LATERAL
 ========================== */
 
 .nav {
@@ -130,7 +147,6 @@ header {
     left: 0;
 
     width: 280px;
-    max-width: 85vw;
     height: 100vh;
 
     background: #c58b2b;
@@ -159,11 +175,10 @@ header {
 .nav-list a {
     text-decoration: none;
     color: white;
-    font-size: 1.1rem;
 }
 
 /* ==========================
-   OVERLAY (CORRECTO)
+   OVERLAY
 ========================== */
 
 .overlay {
@@ -210,7 +225,7 @@ header {
 }
 
 /* ==========================
-   CATÁLOGO
+   CATALOGO
 ========================== */
 
 #catalogo {
@@ -229,11 +244,6 @@ header {
     box-shadow: 0 4px 12px rgba(0,0,0,.15);
     text-align: center;
     padding: 15px;
-    transition: 0.25s;
-}
-
-.tarjeta-producto:hover {
-    transform: translateY(-5px);
 }
 
 .tarjeta-producto img {
@@ -242,28 +252,8 @@ header {
     object-fit: cover;
 }
 
-.agregar-carrito {
-    margin-top: 15px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    background: #c58b2b;
-    color: white;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: .3s;
-    pointer-events: none;
-}
-
-.tarjeta-producto:hover .agregar-carrito {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
 /* ==========================
-   PANEL CARRITO
+   CARRITO PANEL
 ========================== */
 
 .panel-carrito {
@@ -300,32 +290,14 @@ header {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    gap: 2rem;
 }
 
 /* ==========================
-   CHECKOUT
+   AUTH / CHECKOUT
 ========================== */
 
-#checkout {
-    display: none;
-    padding: 50px 20px;
-}
-
+.auth-container,
 .checkout-contenedor {
-    max-width: 700px;
-    margin: auto;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.15);
-}
-
-/* ==========================
-   AUTH
-========================== */
-
-.auth-container {
     max-width: 500px;
     margin: auto;
     background: white;
@@ -335,66 +307,23 @@ header {
 }
 
 /* ==========================
-   BASE FIX
-========================== */
-
-body {
-    overflow-x: hidden;
-}
-
-/* ==========================
-   HEADER FIX GENERAL
-========================== */
-
-.barra-superior {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-/* ==========================
-   CARRO FIJO DERECHA
-========================== */
-
-.carrito {
-    margin-left: auto;
-    flex: 0 0 auto;
-}
-
-/* ==========================
-   RESPONSIVE TABLET + MOBILE
+   RESPONSIVE FIX REAL
 ========================== */
 
 @media (max-width: 768px) {
 
-    /* HEADER MÁS LIMPIO */
-    header {
-        padding: 0.8rem;
-    }
-
     .barra-superior {
         flex-wrap: wrap;
-        gap: 10px;
     }
 
     .logo {
         width: 90px;
     }
 
-    .abrir-menu,
-    .cerrar-menu,
-    .carrito {
-        width: 50px;
-        height: 50px;
-        font-size: 2rem;
-    }
-
-    /* BUSCADOR FULL WIDTH */
     .busqueda {
         order: 3;
         width: 100%;
-        margin: 10px 0 0 0;
+        margin-top: 10px;
     }
 
     .busqueda input {
@@ -405,11 +334,22 @@ body {
         width: 50px;
     }
 
-    /* PRODUCTOS */
+    .carrito {
+        margin-left: auto;
+        font-size: 2rem;
+    }
+
+    .abrir-menu,
+    .cerrar-menu {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+    }
+
     .producto {
         flex-direction: column;
-        align-items: center;
         text-align: center;
+        align-items: center;
         padding: 1.5rem;
     }
 
@@ -417,31 +357,15 @@ body {
         width: 100%;
     }
 
-    /* CATALOGO */
-    #catalogo {
-        padding: 15px;
-    }
-
     .tarjeta-producto {
         width: 100%;
     }
 
-    /* PANEL CARRITO FULL MOBILE */
     .panel-carrito {
-        width: 92vw;
-        right: 4vw;
-        top: 70px;
-    }
-
-    /* MENU MÁS COMPACTO */
-    .nav {
-        width: 80vw;
+        width: 90vw;
+        right: 5vw;
     }
 }
-
-/* ==========================
-   CELULARES PEQUEÑOS
-========================== */
 
 @media (max-width: 480px) {
 
@@ -451,19 +375,5 @@ body {
 
     .tarjeta-producto img {
         height: 180px;
-    }
-
-    .abrir-menu,
-    .cerrar-menu,
-    .carrito {
-        font-size: 1.8rem;
-    }
-
-    .busqueda input {
-        height: 40px;
-    }
-
-    .busqueda button {
-        width: 45px;
     }
 }
