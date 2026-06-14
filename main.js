@@ -275,3 +275,106 @@ document.getElementById("btn-quienes")?.addEventListener("click", (e) => {
     e.preventDefault();
     showSection("quienes");
 });
+/* ==========================
+   AUTH SPA CONTROL
+========================== */
+
+const authSection = document.getElementById("auth");
+
+const loginSpa = document.getElementById("login-spa");
+const registerSpa = document.getElementById("register-spa");
+
+document.getElementById("btn-auth").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    showSection("auth");
+
+    loginSpa.style.display = "block";
+    registerSpa.style.display = "none";
+});
+
+/* ==========================
+   SWITCH SPA LOGIN / REGISTER
+========================== */
+
+document.getElementById("go-login").onclick = () => {
+    loginSpa.style.display = "block";
+    registerSpa.style.display = "none";
+};
+
+document.getElementById("go-register").onclick = () => {
+    loginSpa.style.display = "block";
+    registerSpa.style.display = "block";
+};
+
+/* ==========================
+   REGISTER (FIREBASE REAL)
+========================== */
+
+const registerBtn = document.getElementById("register-btn");
+const loginBtn = document.getElementById("login-btn");
+
+const msg = document.getElementById("auth-msg");
+
+registerBtn.addEventListener("click", async () => {
+
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+
+    try {
+
+        await auth.createUserWithEmailAndPassword(email, password);
+
+        msg.style.color = "green";
+        msg.textContent = "Cuenta creada correctamente. Puedes iniciar sesión.";
+
+        // auto switch a login
+        loginSpa.style.display = "block";
+        registerSpa.style.display = "none";
+
+    } catch (error) {
+
+        if (error.code === "auth/email-already-in-use") {
+
+            msg.style.color = "red";
+            msg.innerHTML = `
+                La cuenta ya existe. 
+                <br>
+                <span id="go-login-link" style="color:blue; cursor:pointer;">
+                    ¿Deseas iniciar sesión?
+                </span>
+            `;
+
+            document.getElementById("go-login-link").onclick = () => {
+                loginSpa.style.display = "block";
+                registerSpa.style.display = "none";
+            };
+
+        } else {
+            msg.style.color = "red";
+            msg.textContent = error.message;
+        }
+    }
+});
+
+/* ==========================
+   LOGIN
+========================== */
+
+loginBtn.addEventListener("click", async () => {
+
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    try {
+
+        await auth.signInWithEmailAndPassword(email, password);
+
+        alert("Login exitoso");
+
+        showSection("inicio");
+
+    } catch (error) {
+        alert("Error: " + error.message);
+    }
+});
