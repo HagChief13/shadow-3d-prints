@@ -1,239 +1,105 @@
-const nav = document.querySelector("#nav");
-const abrir = document.querySelector("#abrir");
-const cerrar = document.querySelector("#cerrar");
+// ==========================
+// ELEMENTOS PRINCIPALES
+// ==========================
 
-const carritoBtn = document.getElementById("carrito");
-const panelCarrito = document.getElementById("panel-carrito");
-const catalogo = document.getElementById("catalogo");
+const nav = document.querySelector(".nav");
+const abrir = document.querySelector(".abrir-menu");
+const cerrar = document.querySelector(".cerrar-menu");
+const overlay = document.querySelector(".overlay");
 
-/* ==========================
-   SECCIONES SPA
-========================== */
+const carritoBtn = document.querySelector(".carrito");
+const panelCarrito = document.querySelector(".panel-carrito");
 
-const sections = {
-    inicio: document.getElementById("inicio"),
-    catalogo: catalogo,
-    checkout: document.getElementById("checkout"),
-    auth: document.getElementById("auth"),
-    contacto: document.getElementById("contacto"),
-    quienes: document.getElementById("quienes")
-};
+// ==========================
+// MENÚ LATERAL
+// ==========================
 
-function showSection(name) {
-
-    Object.values(sections).forEach(sec => {
-        if (sec) sec.style.display = "none";
-    });
-
-    if (sections[name]) {
-        sections[name].style.display = "block";
-    }
-
-    nav.classList.remove("visible");
-    panelCarrito?.classList.remove("visible");
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
+function abrirMenu() {
+    nav.classList.add("visible");
+    overlay.classList.add("visible");
 }
 
-/* ==========================
-   MENU
-========================== */
+function cerrarMenu() {
+    nav.classList.remove("visible");
+    overlay.classList.remove("visible");
+}
 
-abrir?.addEventListener("click", () => nav.classList.add("visible"));
-cerrar?.addEventListener("click", () => nav.classList.remove("visible"));
+abrir.addEventListener("click", abrirMenu);
+cerrar.addEventListener("click", cerrarMenu);
+overlay.addEventListener("click", cerrarMenu);
 
-/* ==========================
-   VOLVER ARRIBA
-========================== */
+// ==========================
+// SUBCATEGORÍAS
+// ==========================
 
-const botonVolver = document.getElementById("volverArriba");
+// usa data-submenu en HTML
+const submenuButtons = document.querySelectorAll("[data-submenu]");
 
-window.addEventListener("scroll", () => {
-    botonVolver?.classList.toggle("visible", window.scrollY > 300);
+submenuButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-submenu");
+        const submenu = document.querySelector(`#${targetId}`);
+
+        if (!submenu) return;
+
+        submenu.classList.toggle("visible");
+    });
 });
 
-/* ==========================
-   CARRITO
-========================== */
+// ==========================
+// CARRITO PANEL
+// ==========================
+
+function toggleCarrito() {
+    panelCarrito.classList.toggle("visible");
+}
+
+carritoBtn.addEventListener("click", toggleCarrito);
+
+// cerrar carrito al hacer click fuera
+document.addEventListener("click", (e) => {
+    const clickDentroCarrito = panelCarrito.contains(e.target);
+    const clickEnBoton = carritoBtn.contains(e.target);
+
+    if (!clickDentroCarrito && !clickEnBoton) {
+        panelCarrito.classList.remove("visible");
+    }
+});
+
+// ==========================
+// CARRITO LÓGICA BÁSICA
+// ==========================
 
 let carrito = [];
 
-const contador = document.querySelector(".contador-carrito");
-const listaCarrito = document.getElementById("lista-carrito");
+function agregarAlCarrito(nombre, precio) {
+    carrito.push({ nombre, precio });
+    renderCarrito();
+}
 
-function actualizarCarrito() {
+function renderCarrito() {
+    const contenedor = document.querySelector(".panel-carrito");
 
-    if (contador) contador.textContent = carrito.length;
+    contenedor.innerHTML = "<h3>Carrito</h3>";
 
-    if (!listaCarrito) return;
-
-    if (carrito.length === 0) {
-        listaCarrito.innerHTML = `<p class="carrito-vacio">Tu carrito está vacío</p>`;
-        return;
-    }
-
-    listaCarrito.innerHTML = "";
+    let total = 0;
 
     carrito.forEach((item, index) => {
-        listaCarrito.innerHTML += `
+        total += item.precio;
+
+        contenedor.innerHTML += `
             <div class="item-carrito">
-                <img src="${item.imagen}" width="40">
                 <span>${item.nombre}</span>
-                <button onclick="eliminarItem(${index})">X</button>
+                <span>$${item.precio}</span>
             </div>
         `;
     });
+
+    contenedor.innerHTML += `
+        <div class="total-final">
+            Total: $${total}
+        </div>
+
+        <button class="btn-checkout">Pagar</button>
+    `;
 }
-
-window.eliminarItem = function(index) {
-    carrito.splice(index, 1);
-    actualizarCarrito();
-};
-
-actualizarCarrito();
-
-/* ==========================
-   AGREGAR CARRITO
-========================== */
-
-document.addEventListener("click", (e) => {
-
-    if (e.target.classList.contains("agregar-carrito")) {
-
-        const card = e.target.closest(".tarjeta-producto");
-
-        carrito.push({
-            nombre: card.querySelector("h3").textContent,
-            imagen: card.querySelector("img").src
-        });
-
-        actualizarCarrito();
-    }
-});
-
-/* ==========================
-   CHECKOUT
-========================== */
-
-document.getElementById("btn-checkout")?.addEventListener("click", () => {
-    showSection("checkout");
-});
-
-/* ==========================
-   ENVIO FIREBASE
-========================== */
-
-const form = document.querySelector(".form-checkout");
-
-form?.addEventListener("submit", async (e) => {
-
-    e.preventDefault();
-
-    const inputs = form.querySelectorAll("input");
-
-    const nombre = inputs[0]?.value || "";
-    const email = inputs[1]?.value || "";
-    const direccion = inputs[2]?.value || "";
-    const comuna = inputs[3]?.value || "";
-    const telefono = inputs[4]?.value || "";
-    const mensaje = form.querySelector("textarea")?.value || "";
-
-    try {
-
-        await db.collection("cotizaciones").add({
-            nombre,
-            email,
-            telefono,
-            direccion,
-            comuna,
-            mensaje,
-            productos: carrito.map(p => p.nombre),
-            fecha: new Date().toISOString()
-        });
-
-        alert("Cotización enviada");
-
-        carrito = [];
-        actualizarCarrito();
-
-        showSection("inicio");
-
-    } catch (err) {
-        alert("Error al enviar cotización");
-        console.error(err);
-    }
-});
-
-/* ==========================
-   NAV LINKS
-========================== */
-
-document.getElementById("btn-inicio")?.addEventListener("click", e => {
-    e.preventDefault();
-    showSection("inicio");
-});
-
-document.getElementById("btn-auth")?.addEventListener("click", e => {
-    e.preventDefault();
-    showSection("auth");
-});
-
-document.getElementById("btn-contacto")?.addEventListener("click", e => {
-    e.preventDefault();
-    showSection("contacto");
-});
-
-document.getElementById("btn-quienes")?.addEventListener("click", e => {
-    e.preventDefault();
-    showSection("quienes");
-});
-
-/* ==========================
-   AUTH FIX PRO
-========================== */
-
-const loginEmail = document.getElementById("loginEmail");
-const loginPass = document.getElementById("loginPass");
-const regEmail = document.getElementById("regEmail");
-const regPass = document.getElementById("regPass");
-const authMsg = document.getElementById("authMsg");
-
-document.getElementById("loginBtn")?.addEventListener("click", async () => {
-
-    try {
-        await auth.signInWithEmailAndPassword(loginEmail.value, loginPass.value);
-        alert("Login correcto");
-        showSection("inicio");
-
-    } catch (err) {
-        alert("Error login");
-    }
-});
-
-document.getElementById("registerBtn")?.addEventListener("click", async () => {
-
-    try {
-
-        const res = await auth.createUserWithEmailAndPassword(
-            regEmail.value,
-            regPass.value
-        );
-
-        await db.collection("users").doc(res.user.uid).set({
-            email: regEmail.value,
-            role: "client"
-        });
-
-        authMsg.innerHTML =
-            `Cuenta creada. <span style="color:blue;cursor:pointer" onclick="showSection('auth')">Iniciar sesión</span>`;
-
-    } catch (err) {
-
-        if (err.code === "auth/email-already-in-use") {
-            authMsg.innerHTML =
-                `Cuenta ya existe. <span style="color:blue;cursor:pointer" onclick="showSection('auth')">Iniciar sesión</span>`;
-        } else {
-            authMsg.textContent = err.message;
-        }
-    }
-});
