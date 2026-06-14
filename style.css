@@ -13,16 +13,17 @@ body {
     background: #f5f5f5;
 }
 
-/* ==========================
-   HEADER
-========================== */
+/* HEADER */
 
 header {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     background: #000;
+
     padding: 1rem;
+
     gap: 1rem;
 }
 
@@ -30,31 +31,34 @@ header {
     width: 120px;
 }
 
-/* ==========================
-   BARRA SUPERIOR
-========================== */
+/* BARRA SUPERIOR */
 
 .barra-superior {
     width: 95%;
     max-width: 1400px;
+
     display: flex;
     align-items: center;
 }
 
-/* ==========================
-   BOTÓN MENU
-========================== */
+/* BOTÓN MENÚ */
 
 .abrir-menu,
 .cerrar-menu {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     background: transparent;
     border: none;
+
     cursor: pointer;
+
     color: white;
+
     font-size: 2.5rem;
+
     width: 60px;
     height: 60px;
 }
@@ -63,59 +67,76 @@ header {
     align-self: flex-end;
 }
 
-/* ==========================
-   BUSCADOR
-========================== */
+/* BUSCADOR */
 
 .busqueda {
     flex: 1;
+
     display: flex;
+
     margin: 0 30px;
 }
 
 .busqueda input {
     flex: 1;
+
     height: 55px;
+
     border: none;
     outline: none;
+
     padding: 0 20px;
+
     font-size: 1rem;
+
     border-radius: 30px 0 0 30px;
 }
 
 .busqueda button {
     width: 60px;
+
     border: none;
+
     background: white;
+
     cursor: pointer;
+
     border-radius: 0 30px 30px 0;
 }
 
-/* ==========================
-   CARRITO ICONO
-========================== */
+/* CARRITO */
 
 .carrito {
     background: transparent;
     border: none;
+
     color: white;
+
     cursor: pointer;
+
     font-size: 2.5rem;
+
     position: relative;
 }
 
 .contador-carrito {
     position: absolute;
+
     top: 0;
     right: -5px;
+
     width: 22px;
     height: 22px;
+
     background: red;
     color: white;
+
     border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: .8rem;
     font-weight: bold;
 }
@@ -124,22 +145,26 @@ header {
     display: none;
 }
 
-/* ==========================
-   NAV (SPA MENU)
-========================== */
+/* MENÚ */
 
 .nav {
     position: fixed;
+
     top: 0;
-    left: -25vw;
-    width: 25vw;
-    min-width: 260px;
+    left: -35vw;
+
+    width: 35vw;
     height: 100vh;
+
     background: #c58b2b;
+
     padding: 2rem;
+
     display: flex;
     flex-direction: column;
+
     transition: left .35s ease;
+
     z-index: 1000;
 }
 
@@ -149,14 +174,21 @@ header {
 
 .nav::before {
     content: "";
+
     position: fixed;
+
     top: 0;
-    left: 25vw;
-    width: calc(100vw - 25vw);
+    left: 35vw;
+
+    width: calc(100vw - 35vw);
     height: 100vh;
+
     background: rgba(0,0,0,.5);
+
     opacity: 0;
+
     pointer-events: none;
+
     transition: opacity .35s ease;
 }
 
@@ -166,24 +198,28 @@ header {
 
 .nav-list {
     list-style: none;
+
     display: flex;
     flex-direction: column;
+
     gap: 1rem;
 }
 
 .nav-list a {
     text-decoration: none;
+
     color: white;
+
     font-size: 1.1rem;
 }
 
-/* ==========================
-   SUBCATEGORÍAS
-========================== */
+/* SUBCATEGORÍAS */
 
 .subcategorias {
     display: none;
+
     list-style: none;
+
     margin-left: 20px;
     margin-top: 10px;
 }
@@ -196,40 +232,29 @@ header {
     margin: 10px 0;
 }
 
-/* ==========================
-   MAIN SPA
-========================== */
+/* CONTENIDO */
 
 main {
     min-height: 70vh;
 }
 
-/* ==========================
-   CATÁLOGO
-========================== */
-
-#catalogo {
-    display: none;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 40px;
-}
-
-/* ==========================
-   PRODUCTO
-========================== */
+/* INICIO */
 
 .producto {
     display: flex;
+
     gap: 2rem;
+
     padding: 3rem;
 }
 
 .foto-producto {
     width: 350px;
+
     background: white;
+
     padding: 15px;
+
     box-shadow: 0 4px 12px rgba(0,0,0,.15);
 }
 
@@ -241,42 +266,166 @@ main {
     flex: 1;
 }
 
-/* ==========================
-   BOTÓN PRODUCTO
-========================== */
+.info-producto h2 {
+    margin-bottom: 1rem;
+}
+
+/* CATÁLOGO */
+
+#catalogo {
+    display: none;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 30px;
+
+    padding: 40px;
+}
+
+.tarjeta-producto {
+    width: 260px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+
+    text-align: center;
+
+    padding: 15px;
+}
+
+.tarjeta-producto img {
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+}
+
+.tarjeta-producto h3 {
+    margin-top: 15px;
+}
+
+.tarjeta-producto p {
+    margin-top: 10px;
+
+    font-weight: bold;
+}
+
+/* BOTÓN PRODUCTO */
 
 .agregar-carrito {
     margin-top: 15px;
+
     padding: 10px 15px;
+
     border: none;
+
     border-radius: 8px;
+
     background: #c58b2b;
+
     color: white;
+
     cursor: pointer;
+
     opacity: 0;
+
     transform: translateY(10px);
+
     transition: .3s;
+
     pointer-events: none;
 }
 
 .tarjeta-producto:hover .agregar-carrito {
     opacity: 1;
+
     transform: translateY(0);
+
     pointer-events: auto;
 }
 
-/* ==========================
-   CARRITO PANEL
-========================== */
+/* FOOTER */
+
+.footer {
+    background: #000;
+
+    color: white;
+
+    padding: 3rem;
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    gap: 2rem;
+}
+
+.footer img {
+    background: white;
+    padding: 5px;
+}
+
+/* VOLVER ARRIBA */
+
+.volver-arriba {
+    position: fixed;
+
+    bottom: 20px;
+    right: 20px;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    background: black;
+
+    color: white;
+
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .3s;
+}
+
+.volver-arriba.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* PANEL CARRITO */
 
 .panel-carrito {
-    display: none;
-    width: 320px;
-    max-height: 500px;
-    overflow-y: auto;
+    position: absolute;
+    top: 80px;
+    right: 20px;
+
+    width: 280px;
+
     background: white;
-    padding: 15px;
     border-radius: 10px;
+
+    padding: 15px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+
+    display: none;
+
+    z-index: 2000;
 }
 
 .panel-carrito.visible {
@@ -285,89 +434,208 @@ main {
 
 .item-carrito {
     display: flex;
+
     justify-content: space-between;
+
     margin-bottom: 10px;
+}
+
+.total-final {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* ==========================
+   MENU MAS PEQUEÑO
+========================== */
+
+.nav{
+    left: -25vw;
+    width: 25vw;
+    min-width: 260px;
+}
+
+.nav::before{
+    left: 25vw;
+    width: calc(100vw - 25vw);
+}
+
+/* ==========================
+   BOTON CHECKOUT
+========================== */
+
+.btn-checkout{
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #c58b2b;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.btn-checkout:hover{
+    filter: brightness(.9);
+}
+
+/* ==========================
+   PANEL CARRITO MEJORADO
+========================== */
+
+.panel-carrito{
+    width: 320px;
+    max-height: 500px;
+
+    overflow-y: auto;
+}
+
+.panel-carrito h3{
+    margin-bottom: 15px;
+}
+
+.resumen-carrito{
+    margin-top: 15px;
+}
+
+.resumen-carrito p{
+    display: flex;
+    justify-content: space-between;
+
+    margin: 8px 0;
+}
+
+.total-final{
+    margin-top: 10px;
+
+    border-top: 1px solid #ddd;
+
+    padding-top: 10px;
 }
 
 /* ==========================
    CHECKOUT
 ========================== */
 
-#checkout {
+#checkout{
     display: none;
+
     padding: 50px 20px;
 }
 
-.checkout-contenedor {
+.checkout-contenedor{
     max-width: 700px;
+
     margin: auto;
+
     background: white;
+
     padding: 30px;
+
     border-radius: 15px;
+
     box-shadow: 0 5px 20px rgba(0,0,0,.15);
 }
 
-.form-checkout {
+.checkout-contenedor h2{
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-checkout{
     display: flex;
     flex-direction: column;
+
     gap: 15px;
 }
 
-.form-checkout input {
+.form-checkout input{
     height: 50px;
+
     border: 1px solid #ccc;
+
     border-radius: 8px;
+
     padding: 0 15px;
 }
 
-.btn-pagar {
+.checkout-total{
+    margin-top: 10px;
+
+    text-align: center;
+}
+
+.btn-pagar{
     height: 50px;
+
     border: none;
+
     border-radius: 8px;
+
     background: #2e7d32;
+
     color: white;
+
+    font-size: 1rem;
+
     font-weight: bold;
+
     cursor: pointer;
 }
 
-/* ==========================
-   VOLVER ARRIBA
-========================== */
-
-.volver-arriba {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: black;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: .3s;
+.btn-pagar:hover{
+    filter: brightness(.9);
 }
 
-.volver-arriba.visible {
-    opacity: 1;
-    visibility: visible;
-}
-/* ==========================
-   SPA FIX REAL
-========================== */
-
-main section {
-    display: none;
+.carrito-spa{
+    display:none;
+    padding:40px;
+    max-width:800px;
+    margin:auto;
+    background:white;
+    border-radius:15px;
 }
 
-main section#inicio {
-    display: block;
+.item-spa{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin:15px 0;
+    padding:10px;
+    border-bottom:1px solid #ddd;
 }
 
-/* cuando JS activa sección */
-main section.active {
-    display: block;
+.item-spa img{
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.modal-cotizacion{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.6);
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    width:400px;
 }
