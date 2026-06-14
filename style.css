@@ -685,3 +685,133 @@ main {
     color: white;
     cursor: pointer;
 }
+/* ==========================
+   MODERN UI UPGRADE (PRO LOOK)
+========================== */
+
+/* animaciones suaves globales */
+* {
+    transition: all 0.2s ease;
+}
+
+/* botones generales mejorados */
+button {
+    font-family: inherit;
+}
+
+/* links más pro */
+.nav-list a {
+    position: relative;
+}
+
+.nav-list a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background: white;
+    transition: 0.3s;
+}
+
+.nav-list a:hover::after {
+    width: 100%;
+}
+
+/* tarjetas más modernas */
+.tarjeta-producto {
+    transform: translateY(0);
+    transition: 0.25s ease;
+}
+
+.tarjeta-producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.2);
+}
+
+/* botón carrito más bonito */
+.carrito {
+    transition: transform 0.2s ease;
+}
+
+.carrito:hover {
+    transform: scale(1.1);
+}
+
+/* panel carrito animado */
+.panel-carrito {
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.25s ease;
+}
+
+.panel-carrito.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* checkout mejor */
+.checkout-contenedor {
+    animation: fadeIn 0.3s ease;
+}
+
+/* auth mejor look */
+.auth-container {
+    animation: fadeIn 0.3s ease;
+}
+
+/* botones principales glow */
+.btn-pagar,
+.btn-checkout {
+    transition: 0.2s;
+}
+
+.btn-pagar:hover,
+.btn-checkout:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0,0,0,.2);
+}
+
+/* fondo suave en SPA */
+section {
+    animation: fadeIn 0.25s ease;
+}
+
+/* loader futuro (preparado) */
+.loading {
+    display: none;
+}
+
+/* animación base */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* scroll más moderno */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c58b2b;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #eee;
+}
+
+/* login highlight link azul (para tu mensaje auth) */
+.auth-link {
+    color: #1a73e8;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
