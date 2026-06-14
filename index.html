@@ -137,38 +137,40 @@
     </section>
 
     <!-- AUTH -->
-    <section id="auth" style="display:none; padding:40px;">
+  <!-- LOGIN -->
+<section id="login" style="display:none; padding:40px;">
 
-        <h2>Login / Registro</h2>
+    <h2>Login</h2>
 
-        <div id="loginBox">
+    <div id="loginBox">
 
-            <h3>Login</h3>
+        <input id="loginEmail" type="email" placeholder="Correo">
+        <input id="loginPass" type="password" placeholder="Contraseña">
 
-            <input id="loginEmail" type="email" placeholder="Correo">
-            <input id="loginPass" type="password" placeholder="Contraseña">
+        <button id="loginBtn">Entrar</button>
 
-            <button id="loginBtn">Entrar</button>
+    </div>
 
-        </div>
+</section>
 
-        <hr>
+<!-- REGISTRO -->
+<section id="register" style="display:none; padding:40px;">
 
-        <div id="registerBox">
+    <h2>Crear cuenta</h2>
 
-            <h3>Crear cuenta</h3>
+    <div id="registerBox">
 
-            <input id="regName" type="text" placeholder="Nombre">
-            <input id="regEmail" type="email" placeholder="Correo">
-            <input id="regPass" type="password" placeholder="Contraseña">
+        <input id="regName" type="text" placeholder="Nombre">
+        <input id="regEmail" type="email" placeholder="Correo">
+        <input id="regPass" type="password" placeholder="Contraseña">
 
-            <button id="registerBtn">Crear cuenta</button>
+        <button id="registerBtn">Crear cuenta</button>
 
-            <p id="authMsg"></p>
+        <p id="authMsg"></p>
 
-        </div>
+    </div>
 
-    </section>
+</section>
 
     <!-- CONTACTO -->
     <section id="contacto" style="display:none;">
