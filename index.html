@@ -1,170 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Tienda 3D</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Tienda 3D</title>
 
-    <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
 
-    <img class="logo" src="logo.png" alt="Logo">
+<img class="logo" src="logo.png" alt="Logo">
 
-    <div class="barra-superior">
+<div class="barra-superior">
 
-        <button id="abrir" class="abrir-menu">
-            <i class="bi bi-list"></i>
-        </button>
+<button id="abrir" class="abrir-menu">
+<i class="bi bi-list"></i>
+</button>
 
-        <form class="busqueda">
-            <input type="text" placeholder="Buscar productos...">
-            <button type="submit">
-                <i class="bi bi-search"></i>
-            </button>
-        </form>
+<form class="busqueda">
+<input type="text" placeholder="Buscar productos...">
+<button type="submit"><i class="bi bi-search"></i></button>
+</form>
 
-        <button id="carrito" class="carrito">
-            <i class="bi bi-cart"></i>
-            <span class="contador-carrito">0</span>
-        </button>
+<button id="carrito" class="carrito">
+<i class="bi bi-cart"></i>
+<span class="contador-carrito">0</span>
+</button>
 
-        <!-- CARRITO -->
-        <div id="panel-carrito" class="panel-carrito">
+</div>
 
-            <h3>Carrito de Compras</h3>
+<nav class="nav" id="nav">
 
-            <div id="lista-carrito">
-                <p class="carrito-vacio">Tu carrito está vacío</p>
-            </div>
+<button id="cerrar" class="cerrar-menu">
+<i class="bi bi-x-lg"></i>
+</button>
 
-            <hr>
+<ul class="nav-list">
 
-            <div class="resumen-carrito">
-                <p>Subtotal: <span id="subtotal"></span></p>
-                <p>IVA: <span id="iva"></span></p>
-                <p class="total-final">Total: <span id="total"></span></p>
+<li><a href="#" id="btn-inicio">Inicio</a></li>
 
-                <button id="btn-checkout" class="btn-checkout">
-                    Solicitar cotización
-                </button>
-            </div>
+<li>
+<a href="#" id="btn-categorias">Categorías</a>
+<ul class="subcategorias" id="subcategorias">
+<li><a href="#" data-categoria="hogar">Hogar</a></li>
+<li><a href="#" data-categoria="decoracion">Decoración</a></li>
+<li><a href="#" data-categoria="utilidad">Utilidad</a></li>
+<li><a href="#" data-categoria="llaveros">Llaveros</a></li>
+<li><a href="#" data-categoria="figuras">Figuras</a></li>
+</ul>
+</li>
 
-        </div>
-
-    </div>
-
-    <nav class="nav" id="nav">
-
-        <button id="cerrar" class="cerrar-menu">
-            <i class="bi bi-x-lg"></i>
-        </button>
-
-        <ul class="nav-list">
-
-            <li><a href="#" id="btn-inicio">Inicio</a></li>
-
-            <li>
-                <a href="#" id="btn-categorias">Categorías</a>
-
-                <ul class="subcategorias" id="subcategorias">
-                    <li><a href="#" data-categoria="hogar">Hogar</a></li>
-                    <li><a href="#" data-categoria="decoracion">Decoración</a></li>
-                    <li><a href="#" data-categoria="utilidad">Utilidad</a></li>
-                    <li><a href="#" data-categoria="llaveros">Llaveros</a></li>
-                    <li><a href="#" data-categoria="figuras">Figuras</a></li>
-                </ul>
-            </li>
-
-            <li><a href="#">Quiénes Somos</a></li>
-            <li><a href="#">Contacto</a></li>
-
-        </ul>
-    </nav>
+</ul>
+</nav>
 
 </header>
 
 <main>
 
 <section id="inicio">
-    <div class="producto">
-        <div class="foto-producto">
-            <img src="producto3.png" alt="Producto">
-        </div>
+<div class="producto">
+<div class="foto-producto">
+<img src="producto3.png">
+</div>
 
-        <div class="info-producto">
-            <h2>Bienvenido a nuestra tienda</h2>
-            <p>Productos impresos en 3D para decoración, hogar y más.</p>
-        </div>
-    </div>
+<div class="info-producto">
+<h2>Bienvenido a nuestra tienda</h2>
+<p>Productos 3D personalizados.</p>
+</div>
+</div>
 </section>
 
 <section id="catalogo"></section>
 
-<!-- CHECKOUT (ARREGLADO) -->
-<section id="checkout" class="checkout-contenedor" style="display:none;">
-    <h2>Cotización</h2>
-
-    <form class="form-checkout">
-
-        <input type="text" placeholder="Nombre" required>
-        <input type="email" placeholder="Email" required>
-        <input type="tel" placeholder="Teléfono" required>
-        <input type="text" placeholder="Dirección" required>
-        <input type="text" placeholder="Comuna" required>
-
-        <textarea placeholder="Mensaje (opcional)"></textarea>
-
-        <button type="submit">Enviar cotización</button>
-    </form>
-</section>
-
 </main>
 
 <footer class="footer">
-    <div>
-        <h3>Contacto</h3>
-        <p>Teléfono: +56 9 1234 5678</p>
-        <p>Email: contacto@mitienda.cl</p>
-    </div>
-
-    <div>
-        <h3>Síguenos</h3>
-        <p>Instagram</p>
-        <p>Facebook</p>
-        <p>Discord</p>
-    </div>
-
-    <div>
-        <h3>QR</h3>
-        <img src="qr.png" width="120">
-    </div>
+<p>Contacto: contacto@mitienda.cl</p>
 </footer>
 
 <a href="#" class="volver-arriba" id="volverArriba">↑</a>
+
+<!-- SPA CARRITO -->
+<div id="spa-carrito" class="spa-carrito">
+
+<div class="spa-contenido">
+
+<h2>Tu carrito</h2>
+
+<div id="spa-lista"></div>
+
+<input id="email-cotizacion" type="email" placeholder="Correo electrónico">
+
+<button id="btn-solicitar" class="btn-final">
+Solicitar cotización
+</button>
+
+<button id="cerrar-spa">Cerrar</button>
+
+</div>
+
+</div>
 
 <script src="main.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_AUTH",
-  projectId: "TU_PROJECT"
-};
-
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp({
+apiKey:"TU_API",
+authDomain:"TU_AUTH",
+projectId:"TU_PROJECT"
+});
 const db = firebase.firestore();
-const auth = firebase.auth();
 </script>
 
 </body>
