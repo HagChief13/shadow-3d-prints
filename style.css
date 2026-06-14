@@ -355,3 +355,19 @@ main {
     opacity: 1;
     visibility: visible;
 }
+/* ==========================
+   SPA FIX REAL
+========================== */
+
+main section {
+    display: none;
+}
+
+main section#inicio {
+    display: block;
+}
+
+/* cuando JS activa sección */
+main section.active {
+    display: block;
+}
