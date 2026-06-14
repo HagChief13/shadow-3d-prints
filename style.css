@@ -815,3 +815,148 @@ section {
 .auth-link:hover {
     text-decoration: underline;
 }
+/* ==========================
+   RESPONSIVE DESIGN FIX
+========================== */
+
+/* Tablets */
+@media (max-width: 1024px) {
+
+    .producto {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .foto-producto {
+        width: 80%;
+        max-width: 400px;
+    }
+
+    .busqueda {
+        margin: 0 10px;
+    }
+
+    .nav {
+        width: 60vw;
+        left: -60vw;
+    }
+
+    .nav::before {
+        left: 60vw;
+        width: calc(100vw - 60vw);
+    }
+
+    #catalogo {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .tarjeta-producto {
+        width: 45%;
+    }
+}
+
+/* Celulares */
+@media (max-width: 768px) {
+
+    header {
+        padding: 0.8rem;
+    }
+
+    .barra-superior {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .busqueda {
+        order: 3;
+        width: 100%;
+        margin: 10px 0 0 0;
+    }
+
+    .logo {
+        width: 90px;
+    }
+
+    .abrir-menu,
+    .carrito {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+    }
+
+    .nav {
+        width: 80vw;
+        left: -80vw;
+    }
+
+    .nav::before {
+        left: 80vw;
+        width: calc(100vw - 80vw);
+    }
+
+    .tarjeta-producto {
+        width: 100%;
+    }
+
+    #catalogo {
+        padding: 15px;
+    }
+
+    .producto {
+        padding: 1.5rem;
+    }
+
+    .foto-producto {
+        width: 100%;
+    }
+
+    .panel-carrito {
+        width: 90vw;
+        right: 5vw;
+    }
+
+    .checkout-contenedor {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .auth-container {
+        margin: 20px;
+    }
+}
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+
+    .logo {
+        width: 75px;
+    }
+
+    .abrir-menu,
+    .carrito {
+        font-size: 1.8rem;
+    }
+
+    .busqueda input {
+        height: 45px;
+    }
+
+    .busqueda button {
+        width: 50px;
+    }
+
+    .tarjeta-producto {
+        padding: 10px;
+    }
+
+    .tarjeta-producto img {
+        height: 180px;
+    }
+
+    .panel-carrito {
+        width: 95vw;
+        right: 2.5vw;
+    }
+}
