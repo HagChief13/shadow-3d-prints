@@ -75,17 +75,18 @@ botonCarrito?.addEventListener("click", () => {
 
 document.addEventListener("click", (e) => {
 
-    if (e.target.classList.contains("agregar-carrito")) {
+    if (!e.target.classList.contains("agregar-carrito")) return;
 
-        const tarjeta = e.target.closest(".tarjeta-producto");
+    const tarjeta = e.target.closest(".tarjeta-producto");
+    if (!tarjeta) return;
 
-        const nombre = tarjeta.querySelector("h3").textContent;
-        const imagen = tarjeta.querySelector("img").src;
+    const nombre = tarjeta.querySelector("h3")?.textContent;
+    const imagen = tarjeta.querySelector("img")?.src;
 
-        carrito.push({ nombre, imagen });
+    if (!nombre || !imagen) return;
 
-        actualizarCarrito();
-    }
+    carrito.push({ nombre, imagen });
+    actualizarCarrito();
 });
 
 /* ==========================
