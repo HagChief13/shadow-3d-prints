@@ -639,3 +639,34 @@ main {
     border-radius:15px;
     width:400px;
 }
+.auth-box{
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.15);
+}
+
+.auth-box input{
+    height: 45px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.auth-box button{
+    height: 45px;
+    border: none;
+    background: #c58b2b;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.auth-box button:hover{
+    filter: brightness(.9);
+}
