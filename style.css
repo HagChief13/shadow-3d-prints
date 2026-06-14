@@ -152,3 +152,35 @@ pointer-events:auto;
 .producto{flex-direction:column;text-align:center}
 .foto-producto{width:100%}
 }
+.spa-carrito {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 5000;
+}
+
+.spa-carrito.visible {
+    display: flex;
+}
+
+.spa-contenido {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#spa-lista .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+}
