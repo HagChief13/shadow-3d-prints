@@ -9,7 +9,190 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
+<body><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tienda 3D Pro</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
 <body>
+
+<header>
+
+    <img class="logo" src="logo.png" alt="Logo">
+
+    <div class="barra-superior">
+
+        <button id="abrir" class="abrir-menu">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <form class="busqueda">
+            <input type="text" placeholder="Buscar productos...">
+            <button type="submit">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+
+        <button id="carrito" class="carrito">
+            <i class="bi bi-cart"></i>
+            <span class="contador-carrito">0</span>
+        </button>
+
+        <!-- PANEL CARRITO -->
+        <div id="panel-carrito" class="panel-carrito">
+            <h3>Carrito de Compras</h3>
+            <div id="lista-carrito">
+                <p class="carrito-vacio">Tu carrito está vacío</p>
+            </div>
+            <hr>
+            <button id="btn-checkout" class="btn-checkout">
+                Solicitar cotización
+            </button>
+        </div>
+
+    </div>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+
+        <button id="cerrar" class="cerrar-menu">
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+        <ul class="nav-list">
+
+            <li><a href="#" data-section="inicio">Inicio</a></li>
+
+            <li>
+                <a href="#" id="btn-categorias">Categorías</a>
+
+                <ul class="subcategorias">
+                    <li><a href="#" data-categoria="hogar">Hogar</a></li>
+                    <li><a href="#" data-categoria="decoracion">Decoración</a></li>
+                    <li><a href="#" data-categoria="utilidad">Utilidad</a></li>
+                    <li><a href="#" data-categoria="llaveros">Llaveros</a></li>
+                    <li><a href="#" data-categoria="figuras">Figuras</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#" data-section="quienes">Quiénes Somos</a></li>
+            <li><a href="#" data-section="contacto">Contacto</a></li>
+
+            <li><a href="#" data-section="login">Login</a></li>
+            <li><a href="#" data-section="register">Crear cuenta</a></li>
+
+        </ul>
+    </nav>
+
+</header>
+
+<main>
+
+    <!-- INICIO -->
+    <section id="inicio">
+        <div class="producto">
+            <div class="foto-producto">
+                <img src="producto3.png" alt="Producto">
+            </div>
+
+            <div class="info-producto">
+                <h2>Bienvenido a nuestra tienda</h2>
+                <p>Productos impresos en 3D personalizados.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo"></section>
+
+    <!-- CHECKOUT -->
+    <section id="checkout">
+        <div class="checkout-contenedor">
+            <h2>Solicitar cotización</h2>
+
+            <form class="form-checkout">
+
+                <input type="text" placeholder="Nombre completo" required>
+                <input type="email" placeholder="Correo electrónico" required>
+                <input type="text" placeholder="Dirección" required>
+                <input type="text" placeholder="Comuna" required>
+                <input type="tel" placeholder="Teléfono" required>
+
+                <textarea placeholder="Detalles"></textarea>
+
+                <button type="submit">Enviar solicitud</button>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="login">
+        <h2>Login</h2>
+
+        <div id="loginBox">
+            <input id="loginEmail" type="email" placeholder="Correo">
+            <input id="loginPass" type="password" placeholder="Contraseña">
+            <button id="loginBtn">Entrar</button>
+        </div>
+    </section>
+
+    <!-- REGISTER -->
+    <section id="register">
+        <h2>Crear cuenta</h2>
+
+        <div id="registerBox">
+            <input id="regName" type="text" placeholder="Nombre">
+            <input id="regEmail" type="email" placeholder="Correo">
+            <input id="regPass" type="password" placeholder="Contraseña">
+
+            <button id="registerBtn">Crear cuenta</button>
+            <p id="authMsg"></p>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>Escríbenos para cotizaciones</p>
+    </section>
+
+    <!-- QUIENES -->
+    <section id="quienes">
+        <h2>Quiénes somos</h2>
+        <p>Empresa de impresión 3D personalizada</p>
+    </section>
+
+</main>
+
+<a href="#" id="volverArriba">↑</a>
+
+<script src="main.js"></script>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<script>
+firebase.initializeApp({
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_AUTH",
+    projectId: "TU_PROJECT"
+});
+
+const db = firebase.firestore();
+const auth = firebase.auth();
+</script>
+
+</body>
+</html>
 
 <header>
 
